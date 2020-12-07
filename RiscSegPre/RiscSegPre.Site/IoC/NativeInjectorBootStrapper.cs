@@ -9,11 +9,11 @@ namespace RiscSegPre.Site.IoC
         public static void RegisterServices(IServiceCollection services)
         {
             #region Camada de Aplicação
-            //services.AddScoped<ICorridaApplicationService, CorridaApplicationService>();
+            
             #endregion Camada de Aplicação
 
             #region Camada de Dominio
-            //services.AddScoped<ICorridaDomainService, CorridaDomainService>();
+          
             #endregion Camada de Dominio
 
             #region Camada de Infra Estrutura do Repositorio
