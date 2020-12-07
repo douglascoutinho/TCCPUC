@@ -1,0 +1,43 @@
+﻿@model RiscSegPre.Domain.Entities.Apartamento
+
+@{
+    ViewData["Title"] = "Apartamento";
+}
+
+<section>
+    <div class="spacer">
+        <h6>Atualizar: <b>@ViewData["Title"]</b></h6>
+        <hr class="my-2">
+    </div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="id_apartamento" />
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label asp-for="nm_apartamento" class="control-label"></label>
+                <input asp-for="nm_apartamento" class="form-control" />
+                <span asp-validation-for="nm_apartamento" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="numero" class="control-label"></label>
+                <input asp-for="numero" class="form-control" />
+                <span asp-validation-for="numero" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="id_predio" class="control-label"></label>
+                <select asp-for="id_predio" asp-items="@ViewBag.ItensPredios" class="form-control">
+                </select>
+                <span asp-validation-for="id_predio" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
+                    <a href='@Url.Action("Index", "Apartamento")' class="btn btn-sm btn-primary">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

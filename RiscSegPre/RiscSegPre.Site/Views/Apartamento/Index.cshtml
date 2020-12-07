@@ -1,0 +1,85 @@
+﻿@model IEnumerable<RiscSegPre.Domain.Entities.Apartamento>
+
+@{
+    ViewData["Title"] = "Apartamento";
+}
+
+<section>
+    <div class="spacer">
+        <a href="@Url.Action("Create", "Apartamento")" class="btn btn-sm btn-outline-primary" title="Cadastrar">Cadastrar @ViewData["Title"] </a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nm_apartamento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.numero)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.id_predioNavigation)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nm_apartamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id_predioNavigation.nm_predio)
+                    </td>
+                    <td>
+                        <a href="#" id="@item.id_apartamento" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" id="@item.id_apartamento" class="delete" onclick="excluir(this)" data-toggle="modal" data-target="#excluir"><i class="material-icons" data-toggle="tooltip" title="Excluir">&#xE872;</i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <partial name="_PartiaModalExcluir" />
+</section>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        function goToEdit(id) {
+
+            location.href = "@Url.Action("Edit", "Apartamento", new {id= "id" })".replace("id", id.toString());
+        }
+
+        $(".deletemodal").click(function () {
+
+            var id = $('#id_selected').val();
+            $.ajax({
+            url: "@(Url.Action("Delete", "Apartamento"))",
+            data: { "id": id },
+            cache: false,
+            type: "GET",
+            success: function (result) {
+
+                if (result.data.length == 0) {
+                    var linha = $("#" + id);
+                    $(linha).parents('tr').remove();
+                    toastr.success("Apartamento excluido com sucesso.", {});
+                }
+            }});
+        });
+
+        function excluir(e) {
+
+            $('#id_selected').remove();
+            var input = '<input type="hidden" id="id_selected" value="' + e.id + '" />';
+            $(".spacer").append(input);
+        }
+
+    </script>
+}

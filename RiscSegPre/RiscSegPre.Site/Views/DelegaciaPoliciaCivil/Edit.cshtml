@@ -1,0 +1,72 @@
+﻿@model RiscSegPre.Domain.Entities.DelegaciaPoliciaCivil
+
+@{
+    ViewData["Title"] = "Delegacia Policia Civil";
+}
+
+
+<section>
+    <div class="spacer">
+        <h6>Atualizar: <b>@ViewData["Title"]</b></h6>
+        <hr class="my-2">
+    </div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="id_delegacia" />
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label asp-for="ds_delegacia" class="control-label"></label>
+                <input asp-for="ds_delegacia" class="form-control" />
+                <span asp-validation-for="ds_delegacia" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="cep" class="control-label"></label>
+                <input asp-for="cep" class="form-control cep" />
+                <span asp-validation-for="cep" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label asp-for="logradouro" class="control-label"></label>
+                <input asp-for="logradouro" class="form-control" />
+                <span asp-validation-for="logradouro" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="numero" class="control-label"></label>
+                <input asp-for="numero" class="form-control" />
+                <span asp-validation-for="numero" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="complemento" class="control-label"></label>
+                <input asp-for="complemento" class="form-control" />
+                <span asp-validation-for="complemento" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="cidade" class="control-label"></label>
+                <input asp-for="cidade" class="form-control" />
+                <span asp-validation-for="cidade" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="bairro" class="control-label"></label>
+                <input asp-for="bairro" class="form-control" />
+                <span asp-validation-for="bairro" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="estado" class="control-label"></label>
+                <input asp-for="estado" class="form-control" />
+                <span asp-validation-for="estado" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
+                    <a href='@Url.Action("Index", "DelegaciaPoliciaCivil")' class="btn btn-sm btn-primary">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

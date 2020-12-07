@@ -1,0 +1,86 @@
+﻿
+/*@import url("//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");*/
+@import url("thirdparty.min.css");
+
+.nav-tabs {
+    background-color: aliceblue;
+}
+
+.bg-light {
+    background-color: #e8eef6 !important;
+}
+
+.spacer {
+    padding: 10px;
+}
+
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+    color: darkblue;
+}
+
+body {
+    color: #566787;
+    background: #f5f5f5;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 13px;
+}
+
+table.table tr th:last-child {
+    width: 100px;
+}
+
+table.table th i {
+    font-size: 13px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+table.table td a:hover {
+    color: #2196F3;
+}
+
+table.table td a.edit {
+    color: #FFC107;
+}
+
+table.table td a.delete {
+    color: #F44336;
+}
+
+table.table td a.add {
+    color: #F44336;
+}
+
+table.table td i {
+    font-size: 19px;
+}
+
+table.table .avatar {
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+#toast-container > div {
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    filter: alpha(opacity=100);
+    box-shadow: 0 0 12px #000;
+}
+
+.toast-message {
+    font-weight: 700;
+    text-shadow: #000 0px 0px 2px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.toast-title {
+    font-weight: 700;
+    text-shadow: #000 0px 0px 2px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.toast-top-center {
+    top: 35%;
+    margin: 0 auto;
+}

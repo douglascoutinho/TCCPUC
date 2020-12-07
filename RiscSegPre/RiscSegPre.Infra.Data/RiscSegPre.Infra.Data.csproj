@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Repositories\BairroHistoricoRepository.cs" />
+    <Compile Remove="Repositories\BairroRiscoRepository.cs" />
+    <Compile Remove="Repositories\EnderecoRepository.cs" />
+    <Compile Remove="Repositories\FotoApartamentoRepository.cs" />
+    <Compile Remove="Repositories\FotoPredioRepository.cs" />
+    <Compile Remove="Repositories\FotoRepository.cs" />
+    <Compile Remove="Repositories\InspecaoHistoricoRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RiscSegPre.Domain\RiscSegPre.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

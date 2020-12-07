@@ -1,0 +1,87 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Registrar";
+}
+
+<style type="text/css">
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+            .form-signin .form-control:focus {
+                z-index: 2;
+            }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+</style>
+
+<div class="text-center">
+
+    <form id="account" method="post" class="form-signin">
+        <img src="~/img/icons/logo2.jpg" width="72" height="72" class="d-inline-block align-top" alt="">
+        <div class="mb-4"></div>
+        <h1 class="h3 mb-4 font-weight-normal">@ViewData["Title"]</h1>
+        <div class="form-row">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group col-md-12">
+                <label asp-for="Input.Email" class="sr-only">Email</label>
+                <input asp-for="Input.Email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="Input.Password" class="sr-only">Password</label>
+                <input asp-for="Input.Password" type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

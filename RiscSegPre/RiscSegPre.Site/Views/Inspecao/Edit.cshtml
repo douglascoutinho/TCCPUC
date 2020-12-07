@@ -1,0 +1,320 @@
+﻿@model RiscSegPre.Domain.Entities.Inspecao
+
+@{
+    ViewData["Title"] = "Inspeção";
+}
+
+
+<section>
+    <div class="spacer">
+        <h6>Atualizar: <b>@ViewData["Title"]</b></h6>
+        <hr class="my-2">
+    </div>
+    <form asp-action="Edit" enctype="multipart/form-data" method="post">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#inspecao" role="tab" aria-controls="home" aria-selected="true">Inspeção</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tecnico" role="tab" aria-controls="profile" aria-selected="false">Notas Meios Técnicos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#fisico" role="tab" aria-controls="contact" aria-selected="false">Notas Meios Físicos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#procedimento" role="tab" aria-controls="contact" aria-selected="false">Notas Procedimentos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#humano" role="tab" aria-controls="contact" aria-selected="false">Notas Meios Humanos</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="inspecao" role="tabpanel" aria-labelledby="home-tab">
+                <div class="spacer"></div>
+                <input type="hidden" asp-for="id_inspecao" />
+                <input type="hidden" asp-for="id_notaMeioProtecaoTecnico" />
+                <input type="hidden" asp-for="id_notaMeioProtecaoFisico" />
+                <input type="hidden" asp-for="id_notaAvaliacaoProcedimento" />
+                <input type="hidden" asp-for="id_notaMeioProtecaoHumano" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label asp-for="distanciaComunidade" class="control-label"></label>
+                        <input asp-for="distanciaComunidade" class="form-control" />
+                        <span asp-validation-for="distanciaComunidade" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="id_cliente" class="control-label"></label>
+                        <select asp-for="id_cliente" asp-items="@ViewBag.ItensClientes" class="form-control">
+                            <option value="">Selecione...</option>
+                        </select>
+                        <span asp-validation-for="id_cliente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="id_bairro" class="control-label"></label>
+                        <select asp-for="id_bairro" asp-items="@ViewBag.ItensBairros" class="form-control">
+                            <option value="">Selecione...</option>
+                        </select>
+                        <span asp-validation-for="id_bairro" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label asp-for="id_predio" class="control-label"></label>
+                        <select asp-for="id_predio" asp-items="@ViewBag.ItensPredios" class="form-control">
+                            <option value="">Selecione...</option>
+                        </select>
+                        <span asp-validation-for="id_predio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="id_apartamento" class="control-label"></label>
+                        <select asp-for="id_apartamento" asp-items="@ViewBag.ItensApartamentos" class="form-control">
+                        </select>
+                        <span asp-validation-for="id_apartamento" class="text-danger"></span>
+                    </div>
+                </div>
+                <label asp-for="fotoApartamento" class="control-label">Foto Apartamento</label>
+                <div class="form-row">
+
+                    <div class="form-group col-md-5">
+                        <input type="file" asp-for="fotoApartamento" accept="image/*" data-show-preview="false" />
+                    </div>
+                    @*<div class="col-md-1">
+                            <p>
+                                <a href="#" id="addImgApartamento" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i></a>
+                            </p>
+                        </div>*@
+                </div>
+                <label asp-for="fotoPredio" class="control-label">Foto Prédio</label>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <input type="file" asp-for="fotoPredio" accept="image/*" data-show-preview="false" />
+                    </div>
+                    <!--<div class="col-md-1">
+                    <p>
+                        <a href="#" id="addImgPredio" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i>-->
+                    @*<span>Add New Employee</span>*@
+                    <!--</a>
+                        </p>
+                    </div>-->
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tecnico" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="spacer"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaDeteccaoIntruso" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaDeteccaoIntruso" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoTecnicoNavigation.sistemaDeteccaoIntruso" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaAlarmeIntruso" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaAlarmeIntruso" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoTecnicoNavigation.sistemaAlarmeIntruso" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoTecnicoNavigation.circuitoFechadoVideo" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoTecnicoNavigation.circuitoFechadoVideo" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoTecnicoNavigation.circuitoFechadoVideo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaControleAcesso" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaControleAcesso" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoTecnicoNavigation.sistemaControleAcesso" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaComunicacao" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaComunicacao" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoTecnicoNavigation.sistemaComunicacao" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaControleRodizio" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoTecnicoNavigation.sistemaControleRodizio" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoTecnicoNavigation.sistemaControleRodizio" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoTecnicoNavigation.telemonitoramento" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoTecnicoNavigation.telemonitoramento" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoTecnicoNavigation.telemonitoramento" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="fisico" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="spacer"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoFisicoNavigation.sistemaDeteccaoIntruso" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.sistemaDeteccaoIntruso" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoFisicoNavigation.sistemaDeteccaoIntruso" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoFisicoNavigation.recursoSegurancaPerimetroExterno" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.recursoSegurancaPerimetroExterno" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoFisicoNavigation.recursoSegurancaPerimetroExterno" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoFisicoNavigation.meiosDesaceleracaoFrenagemVeiculo" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.meiosDesaceleracaoFrenagemVeiculo" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoFisicoNavigation.meiosDesaceleracaoFrenagemVeiculo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoFisicoNavigation.controleAcessoVeiculo" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.controleAcessoVeiculo" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoFisicoNavigation.controleAcessoVeiculo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoFisicoNavigation.controleAcessoPedestre" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.controleAcessoPedestre" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoFisicoNavigation.controleAcessoPedestre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoFisicoNavigation.meioProtecaoEdificio" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.meioProtecaoEdificio" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoFisicoNavigation.meioProtecaoEdificio" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoFisicoNavigation.armarioSeguranca" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.armarioSeguranca" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoFisicoNavigation.armarioSeguranca" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="procedimento" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="spacer"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaAvaliacaoProcedimentoNavigation.especificosLocal" class="control-label"></label>
+                        <input asp-for="id_notaAvaliacaoProcedimentoNavigation.especificosLocal" class="form-control nota" />
+                        <span asp-validation-for="id_notaAvaliacaoProcedimentoNavigation.especificosLocal" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaAvaliacaoProcedimentoNavigation.organizacaoSeguranca" class="control-label"></label>
+                        <input asp-for="id_notaAvaliacaoProcedimentoNavigation.organizacaoSeguranca" class="form-control nota" />
+                        <span asp-validation-for="id_notaAvaliacaoProcedimentoNavigation.organizacaoSeguranca" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaAvaliacaoProcedimentoNavigation.treinamentoConscientizacaoSeguranca" class="control-label"></label>
+                        <input asp-for="id_notaAvaliacaoProcedimentoNavigation.treinamentoConscientizacaoSeguranca" class="form-control nota" />
+                        <span asp-validation-for="id_notaAvaliacaoProcedimentoNavigation.treinamentoConscientizacaoSeguranca" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaAvaliacaoProcedimentoNavigation.segurancaEmergenciaExpatriados" class="control-label"></label>
+                        <input asp-for="id_notaAvaliacaoProcedimentoNavigation.segurancaEmergenciaExpatriados" class="form-control nota" />
+                        <span asp-validation-for="id_notaAvaliacaoProcedimentoNavigation.segurancaEmergenciaExpatriados" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="humano" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="spacer"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoHumanoNavigation.guardaSeguranca" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoHumanoNavigation.guardaSeguranca" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoHumanoNavigation.guardaSeguranca" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoHumanoNavigation.gestaoServicoVigilancia" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoHumanoNavigation.gestaoServicoVigilancia" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoHumanoNavigation.gestaoServicoVigilancia" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoHumanoNavigation.equipamentoMaterial" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoHumanoNavigation.equipamentoMaterial" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoHumanoNavigation.equipamentoMaterial" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="id_notaMeioProtecaoHumanoNavigation.capacidadeOperacional" class="control-label"></label>
+                        <input asp-for="id_notaMeioProtecaoHumanoNavigation.capacidadeOperacional" class="form-control nota" />
+                        <span asp-validation-for="id_notaMeioProtecaoHumanoNavigation.capacidadeOperacional" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
+                    <a href='@Url.Action("Index", "Inspecao")' class="btn btn-sm btn-primary">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#id_predio').change(function () {
+
+                //limpa seletc ESCRAVO
+                $('#id_apartamento').empty();
+
+		        //Guarda opção que foi selecionada no Select MESTRE
+                $('#id_apartamento').append($('<option></option>').val("0").html('Selecione'));
+
+                var x = document.getElementById("id_apartamento");
+		        var option = document.createElement("option");
+
+		        //Adiciona uma opção tipo Sslecione um Valor
+		        //option.value = "0"
+		        x.add(option);
+
+		        //Mancada para forçar redraw - pode não ser necessário
+                var element = document.getElementById('id_apartamento');
+		        var n = document.createTextNode(' ');
+		        var disp = element.style.display;
+		        element.appendChild(n);
+		        element.style.display = 'none';
+		        setTimeout(function() {
+			        element.style.display = disp;
+			        n.parentNode.removeChild(n);
+                }, 20);
+
+		        $.ajax({
+			        type: 'GET',
+			        headers: {
+				        'Accept': 'application/json',
+				        'Content-Type': 'text/plain'
+			        },
+			        dataType: 'json',
+                    url: "@(Url.Action("GetSelectApartamento", "Inspecao"))",
+                    data: { "id": $('#id_predio').val() },
+			        success: function(data) {
+                        if (data != "") {
+
+                            $('#id_apartamento').removeAttr('disabled');
+                            callbackFunction(data); //IMPORTANTE
+                        }
+                        else {
+                            $('#id_apartamento').attr('disabled', 'false');
+                        }
+			        }
+		        });
+
+                //Carrega o select ESCRAVO
+		        function callbackFunction(resultData) {
+
+			        var items = '<option value="0"><<Selecione>></option>';
+
+			        $.each(resultData, function(i, apartamento) {
+
+                        items += "<option value='" + apartamento.value + "'>" + apartamento.text + "</option>";
+                        $("#id_apartamento").append("<option value='" + apartamento.value + "'>" + apartamento.text + "</option>");
+			        });
+
+                    $('#id_apartamento option:eq(' + 1 + ')').remove(); //retira branco
+		        }
+	        });
+        });
+
+    </script>
+}

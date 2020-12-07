@@ -1,0 +1,133 @@
+﻿@model IEnumerable<RiscSegPre.Domain.Entities.Bairro>
+
+@{
+    ViewData["Title"] = "Bairro";
+}
+
+<section>
+        <div class="spacer">
+            <a href="@Url.Action("Create", "Bairro")" class="btn btn-sm btn-outline-primary" title="Cadastrar">Cadastrar @ViewData["Title"] </a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nm_bairro)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cidade)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cisp)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.risp)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.aisp)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ocorrencias)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.id_batalhaoNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.id_delegaciaNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.id_riscoNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dt_cadastro)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nm_bairro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cisp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.risp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.aisp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ocorrencias)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id_batalhaoNavigation.ds_delegacia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id_delegaciaNavigation.ds_delegacia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id_riscoNavigation.ds_risco)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dt_cadastro)
+                    </td>
+                    <td>
+                        <a href="#" id="@item.id_bairro" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" id="@item.id_bairro" class="delete" onclick="excluir(this)" data-toggle="modal" data-target="#excluir"><i class="material-icons" data-toggle="tooltip" title="Excluir">&#xE872;</i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <partial name="_PartiaModalExcluir" />
+    </section>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        function goToEdit(id) {
+
+            location.href = "@Url.Action("Edit", "Bairro", new {id= "id" })".replace("id", id.toString());
+        }
+
+        $(".deletemodal").click(function () {
+
+            var id = $('#id_selected').val();
+            $.ajax({
+            url: "@(Url.Action("Delete", "Bairro"))",
+            data: { "id": id },
+            cache: false,
+            type: "GET",
+            success: function (result) {
+
+                if (result.data.length == 0) {
+                    var linha = $("#" + id);
+                    $(linha).parents('tr').remove();
+                    toastr.success("Bairro excluido com sucesso.", {});
+                }
+            }});
+        });
+
+        function excluir(e) {
+
+            $('#id_selected').remove();
+            var input = '<input type="hidden" id="id_selected" value="' + e.id + '" />';
+            $(".spacer").append(input);
+        }
+
+    </script>
+}

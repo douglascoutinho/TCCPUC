@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\html\**" />
+    <Compile Remove="Entities\latex\**" />
+    <Compile Remove="Entities\xml\**" />
+    <Compile Remove="Repository\**" />
+    <EmbeddedResource Remove="Entities\html\**" />
+    <EmbeddedResource Remove="Entities\latex\**" />
+    <EmbeddedResource Remove="Entities\xml\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <None Remove="Entities\html\**" />
+    <None Remove="Entities\latex\**" />
+    <None Remove="Entities\xml\**" />
+    <None Remove="Repository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\Foto.cs" />
+    <Compile Remove="Entities\FotoApartamento.cs" />
+    <Compile Remove="Entities\FotoPredio.cs" />
+    <Compile Remove="IRepositories\IBairroHistoricoRepository.cs" />
+    <Compile Remove="IRepositories\IBairroRiscoRepository.cs" />
+    <Compile Remove="IRepositories\IEnderecoRepository.cs" />
+    <Compile Remove="IRepositories\IFotoApartamentoRepository.cs" />
+    <Compile Remove="IRepositories\IFotoPredioRepository.cs" />
+    <Compile Remove="IRepositories\IFotoRepository.cs" />
+    <Compile Remove="IRepositories\IInspecaoHistoricoRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+  </ItemGroup>
+
+</Project>

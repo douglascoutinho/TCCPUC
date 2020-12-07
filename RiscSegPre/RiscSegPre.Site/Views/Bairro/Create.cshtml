@@ -1,0 +1,90 @@
+﻿@model RiscSegPre.Domain.Entities.Bairro
+
+@{
+    ViewData["Title"] = "Bairro";
+}
+
+<section>
+    <div class="spacer">
+        <h6>Cadastrar: <b>@ViewData["Title"]</b></h6>
+        <hr class="my-2">
+    </div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="nm_bairro" class="control-label"></label>
+                <input asp-for="nm_bairro" class="form-control" />
+                <span asp-validation-for="nm_bairro" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="cidade" class="control-label"></label>
+                <input asp-for="cidade" class="form-control" />
+                <span asp-validation-for="cidade" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="estado" class="control-label"></label>
+                <input asp-for="estado" class="form-control" />
+                <span asp-validation-for="estado" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="cisp" class="control-label"></label>
+                <input asp-for="cisp" class="form-control" />
+                <span asp-validation-for="cisp" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="risp" class="control-label"></label>
+                <input asp-for="risp" class="form-control" />
+                <span asp-validation-for="risp" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="aisp" class="control-label"></label>
+                <input asp-for="aisp" class="form-control" />
+                <span asp-validation-for="aisp" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="id_delegacia" class="control-label"></label>
+                <select asp-for="id_delegacia" asp-items="@ViewBag.ItensDelegacias" class="form-control">
+                    <option value="">Selecione...</option>
+                </select>
+                <span asp-validation-for="id_delegacia" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="id_batalhao" class="control-label"></label>
+                <select asp-for="id_batalhao" asp-items="@ViewBag.ItensBatalhoes" class="form-control">
+                    <option value="">Selecione...</option>
+                </select>
+                <span asp-validation-for="id_batalhao" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="id_risco" class="control-label"></label>
+                <select asp-for="id_risco" asp-items="@ViewBag.ItensRiscos" class="form-control">
+                    <option value="">Selecione...</option>
+                </select>
+                <span asp-validation-for="id_risco" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="ocorrencias" class="control-label"></label>
+                <textarea asp-for="ocorrencias" rows="5" cols="40" class="form-control acaoMotivo"></textarea>
+                <span asp-validation-for="ocorrencias" class="text-danger"></span>
+                <span class="text-danger field-validation-error" data-valmsg-for="AcaoMotivo" data-valmsg-replace="true" style="display:none">
+                    <span id="AcaoMotivo-error" asp-validation-for="ocorrencias"> O campo Ocorrências é obrigatório</span>
+                </span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
+                    <a href='@Url.Action("Index", "Bairro")' class="btn btn-sm btn-primary">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

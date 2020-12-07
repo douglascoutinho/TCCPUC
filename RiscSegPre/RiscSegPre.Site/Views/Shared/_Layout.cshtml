@@ -1,0 +1,102 @@
+﻿@using RiscSegPre.Site.Extentions.Menssagem;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Risco Segurança Prédio </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/thirdparty.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/thirdparty.min.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" />
+    </environment>
+
+    <link rel="shortcut icon" href="~/img/favicon.ico" />
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/icons/logo2.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                </a>
+            </nav>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Alterna navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav">
+                    <li is-active-route asp-controller="Home"><a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Index">HOME<span class="sr-only">(Página atual)</span></a></li>
+                    <li is-active-route asp-controller="Inspecao"><a class="nav-item nav-link" asp-controller="Inspecao" asp-action="index">INSPEÇÃO</a></li>
+                    <li is-active-route asp-controller="Bairro"><a class="nav-item nav-link" asp-controller="Bairro" asp-action="index">BAIRRO</a></li>
+                    <li is-active-route asp-controller="Predio"><a class="nav-item nav-link" asp-controller="Predio" asp-action="index">PRÉDIO</a></li>
+                    <li is-active-route asp-controller="Apartamento"><a class="nav-item nav-link" asp-controller="Apartamento" asp-action="index">APARTAMENTO</a></li>
+                    <li is-active-route asp-controller="Cliente"><a class="nav-item nav-link" asp-controller="Cliente" asp-action="index">CLIENTE</a></li>
+                    <li is-active-route asp-controller="DelegaciaPoliciaCivil"><a class="nav-item nav-link" asp-controller="DelegaciaPoliciaCivil" asp-action="index">POLICIA CIVIL</a></li>
+                    <li is-active-route asp-controller="BatalhaoPoliciaMilitar"><a class="nav-item nav-link" asp-controller="BatalhaoPoliciaMilitar" asp-action="index">POLICIA MILITAR</a></li>
+                    @*<a class="nav-item nav-link disabled" href="#">Desativado</a>*@
+                </ul>
+                
+            </div>
+            @*<form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        </form>*@
+
+
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <partial name="_LoginPartial" />
+            </div>
+
+
+        </nav>
+
+
+
+
+    </header>
+
+    <environment include="Development">
+        <script src="~/js/thirdparty.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment exclude="Development">
+        <script src="~/js/thirdparty.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Risco Segurança Prédio - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                showCookieMessage('@ToastrMessageEx.DefaultCookieName');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+Scaffold-DbContext -Context DataContext_TEMP Name=webContext -Tables DelegaciaPoliciaCivil, BatalhaoPoliciaMilitar, Risco, Bairro, Cliente, Predio, Apartamento, NotaMeioProtecaoTecnico, NotaMeioProtecaoFisico, NotaAvaliacaoProcedimento, NotaMeioProtecaoHumano, Inspecao -OutputDir EntitiesTemp -ContextDir DataContextTemp -Force -Provider Microsoft.EntityFrameworkCore.SqlServer -UseDatabaseNames -Verbose
+
+
+
+--OLD
+Scaffold-DbContext -Context DataContext_TEMP Name=webContext -Tables DelegaciaPoliciaCivil, BatalhaoPoliciaMilitar, Risco, Bairro, Cliente, Foto, Predio, Apartamento, FotoPredio, FotoApartamento, NotaMeioProtecaoTecnico, NotaMeioProtecaoFisico, NotaAvaliacaoProcedimento, NotaMeioProtecaoHumano, Inspecao -OutputDir EntitiesTemp -ContextDir DataContextTemp -Force -Provider Microsoft.EntityFrameworkCore.SqlServer -UseDatabaseNames -Verbose
+
+--OLD
+Scaffold-DbContext -Context DataContext_TEMP Name=webContext -Tables DelegaciaPoliciaCivil, BatalhaoPoliciaMilitar, Risco, Bairro, Cliente, Apartamento, Predio, Foto, FotoPredio, FotoApartamento, Inspecao, StatusPredio, StatusApartamento, MotivoReprovacaoPredio, MotivoReprovacaoApartamento  -OutputDir EntitiesTemp -ContextDir DataContextTemp -Force -Provider Microsoft.EntityFrameworkCore.SqlServer -UseDatabaseNames -Verbose

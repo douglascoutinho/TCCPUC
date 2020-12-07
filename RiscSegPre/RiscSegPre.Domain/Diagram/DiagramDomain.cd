@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RiscSegPre.Domain.Entities.Apartamento">
+    <Position X="13" Y="28.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAEAAAAQAAAAAAABAAAAAAAAAEAAACAAAA=</HashCode>
+      <FileName>Entities\Apartamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.Bairro">
+    <Position X="18.25" Y="35.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AABACAAAGAANAAAAAAAEAAAACAABgAEACAkAAAQAAAA=</HashCode>
+      <FileName>Entities\Bairro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.BatalhaoPoliciaMilitar">
+    <Position X="20" Y="23.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAABAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Entities\BatalhaoPoliciaMilitar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.CalcularNota">
+    <Position X="15.25" Y="28.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\CalcularNota.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.Cliente">
+    <Position X="13" Y="31.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAEAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Entities\Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.DelegaciaPoliciaCivil">
+    <Position X="17.5" Y="23.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAABAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\DelegaciaPoliciaCivil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.Endereco">
+    <Position X="17.75" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAgAIAAAAAAAAAACBAAAAAAAgAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Entities\Endereco.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.Inspecao">
+    <Position X="14.75" Y="35.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>ABBACIQACEAAAAIBQAAEIAAANBAEIAAAACAAEACAAVA=</HashCode>
+      <FileName>Entities\Inspecao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.NotaAvaliacaoProcedimento">
+    <Position X="20.75" Y="28.75" Width="3" />
+    <Members>
+      <Method Name="CalcularMedia" Hidden="true" />
+      <Method Name="NotaAvaliacaoProcedimento" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAEABIAAAAAAAgAAAIAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\NotaAvaliacaoProcedimento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.NotaMeioProtecaoFisico">
+    <Position X="17.75" Y="31.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIEAAAQEQAAAAAAAADgAAAAAAAABAAAAAAEAAAA=</HashCode>
+      <FileName>Entities\NotaMeioProtecaoFisico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.NotaMeioProtecaoHumano">
+    <Position X="17.75" Y="28.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAEAAAAAEAAMAgAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Entities\NotaMeioProtecaoHumano.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.NotaMeioProtecaoTecnico">
+    <Position X="20.75" Y="31.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>QAAACQAAAAQEAAACAAgAAAgAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\NotaMeioProtecaoTecnico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.Predio">
+    <Position X="15" Y="23.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAEAAAAQAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Entities\Predio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RiscSegPre.Domain.Entities.Risco">
+    <Position X="15.25" Y="31.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Risco.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IBaseRepository&lt;TEntity&gt;">
+    <Position X="5" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAECAAAAABAAAAAAAAAAAEAAAgAAgAAAAAAAIA=</HashCode>
+      <FileName>IRepositories\IBaseRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IBairroRepository" Collapsed="true">
+    <Position X="1.5" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepositories\IBairroRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IApartamentoRepository" Collapsed="true">
+    <Position X="6.5" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepositories\IApartamentoRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IBatalhaoPoliciaMilitarRepository" Collapsed="true">
+    <Position X="2.75" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepositories\IBatalhaoPoliciaMilitarRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IClienteRepository" Collapsed="true">
+    <Position X="8.75" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepositories\IClienteRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IDelegaciaPoliciaCivilRepository" Collapsed="true">
+    <Position X="7.5" Y="8.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepositories\IDelegaciaPoliciaCivilRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IInspecaoRepository" Collapsed="true">
+    <Position X="6.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepositories\IInspecaoRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IPredioRepository" Collapsed="true">
+    <Position X="4" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepositories\IPredioRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RiscSegPre.Domain.IRepositories.IRiscoRepository" Collapsed="true">
+    <Position X="4" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepositories\IRiscoRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
