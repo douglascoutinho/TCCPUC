@@ -10,6 +10,7 @@
         <hr class="my-2">
     </div>
     <form asp-action="Create" enctype="multipart/form-data" method="post">
+        <input type="hidden" asp-for="id_select" />
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#inspecao" role="tab" aria-controls="home" aria-selected="true">Inspeção</a>
@@ -72,21 +73,29 @@
 
                     <div class="form-group col-md-5">
                         <input type="file" asp-for="fotoApartamento" accept="image/*" data-show-preview="true" />
+                        <div>
+                            <span asp-validation-for="fotoApartamento" class="text-danger"></span>
+                        </div>
                     </div>
                     @*<div class="col-md-1">
-                        <p>
-                            <a href="#" id="addImgApartamento" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i></a>
-                        </p>
-                    </div>*@
+                            <p>
+                                <a href="#" id="addImgApartamento" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i></a>
+                            </p>
+                        </div>*@
                 </div>
                 <label asp-for="fotoPredio" class="control-label">Foto Prédio</label>
                 <div class="form-row">
                     <div class="form-group col-md-5">
-                        <input type="file" asp-for="fotoPredio" accept="image/*" data-show-preview="true"/>
+                        <input type="file" asp-for="fotoPredio" accept="image/*" data-show-preview="true" />
+                        <div>
+                            <span asp-validation-for="fotoPredio" class="text-danger"></span>
+                        </div>
                     </div>
                     <!--<div class="col-md-1">
-                        <p>
-                            <a href="#" id="addImgPredio" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i>--> @*<span>Add New Employee</span>*@<!--</a>
+                    <p>
+                        <a href="#" id="addImgPredio" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i>-->
+                    @*<span>Add New Employee</span>*@
+                    <!--</a>
                         </p>
                     </div>-->
                 </div>
@@ -244,70 +253,97 @@
 
         $(document).ready(function () {
 
+
+            if ($('#id_apartamento').val() > 0) {
+
+                var apartamento = $('#id_apartamento').val();
+                $('#id_select').val(apartamento);
+            }
+
+
+            if ($('#id_predio').val() != 0) {
+
+                  carregarPredioApartamento();
+            }
+
             $('#id_apartamento').attr('disabled', 'false');
+
 
             $('#id_predio').change(function () {
 
-                //limpa seletc ESCRAVO
-                $('#id_apartamento').empty();
+                var apartamento = $('#id_apartamento').val();
+                $('#id_select').val(apartamento);
 
-		        //Guarda opção que foi selecionada no Select MESTRE
-                $('#id_apartamento').append($('<option></option>').val("0").html('Selecione'));
+                carregarPredioApartamento();
 
-                var x = document.getElementById("id_apartamento");
-		        var option = document.createElement("option");
+             });
 
-		        //Adiciona uma opção tipo Sslecione um Valor
-		        //option.value = "0"
-		        x.add(option);
+          });
 
-		        //Mancada para forçar redraw - pode não ser necessário
-                var element = document.getElementById('id_apartamento');
-		        var n = document.createTextNode(' ');
-		        var disp = element.style.display;
-		        element.appendChild(n);
-		        element.style.display = 'none';
-		        setTimeout(function() {
-			        element.style.display = disp;
-			        n.parentNode.removeChild(n);
-                }, 20);
+        function carregarPredioApartamento(){
 
-		        $.ajax({
-			        type: 'GET',
-			        headers: {
-				        'Accept': 'application/json',
-				        'Content-Type': 'text/plain'
-			        },
-			        dataType: 'json',
-                    url: "@(Url.Action("GetSelectApartamento", "Inspecao"))",
-                    data: { "id": $('#id_predio').val() },
-			        success: function(data) {
-                        if (data != "") {
+            //limpa seletc ESCRAVO
+            $('#id_apartamento').empty();
 
-                            $('#id_apartamento').removeAttr('disabled');
-                            callbackFunction(data); //IMPORTANTE
-                        }
-                        else {
-                            $('#id_apartamento').attr('disabled', 'false');
-                        }
-			        }
-		        });
+		    //Guarda opção que foi selecionada no Select MESTRE
+            $('#id_apartamento').append($('<option></option>').val("0").html('Selecione'));
+            var x = document.getElementById("id_apartamento");
+            var option = document.createElement("option");
 
-                //Carrega o select ESCRAVO
-		        function callbackFunction(resultData) {
+		    //Adiciona uma opção tipo Sslecione um Valor
+		    //option.value = "0"
+            x.add(option);
 
-			        var items = '<option value="0"><<Selecione>></option>';
+		    //Mancada para forçar redraw - pode não ser necessário
+            var element = document.getElementById('id_apartamento');
+		    var n = document.createTextNode(' ');
+		    var disp = element.style.display;
+		    element.appendChild(n);
+		    element.style.display = 'none';
+		    setTimeout(function() {
+			    element.style.display = disp;
+			    n.parentNode.removeChild(n);
+            }, 20);
 
-			        $.each(resultData, function(i, apartamento) {
+		    $.ajax({
+			    type: 'GET',
+			    headers: {
+				    'Accept': 'application/json',
+				    'Content-Type': 'text/plain'
+			    },
+			    dataType: 'json',
+                url: "@(Url.Action("GetSelectApartamento", "Inspecao"))",
+                data: { "id": $('#id_predio').val() },
+			    success: function(data) {
+                    if (data != "") {
+                        $('#id_apartamento').removeAttr('disabled');
+                        callbackFunction(data); //IMPORTANTE
+                    }
+                    else {
+                        $('#id_apartamento').attr('disabled', 'false');
+                    }
+			    }
+            });
 
-                        items += "<option value='" + apartamento.value + "'>" + apartamento.text + "</option>";
-                        $("#id_apartamento").append("<option value='" + apartamento.value + "'>" + apartamento.text + "</option>");
-			        });
+            //Carrega o select ESCRAVO
+		    function callbackFunction(resultData) {
+			    var items = '<option value="0"><<Selecione>></option>';
+			    $.each(resultData, function(i, apartamento) {
+                    items += "<option value='" + apartamento.value + "'>" + apartamento.text + "</option>";
+                    $("#id_apartamento").append("<option value='" + apartamento.value + "'>" + apartamento.text + "</option>");
+			    });
+                $('#id_apartamento option:eq(' + 1 + ')').remove(); //retira branco
 
-                    $('#id_apartamento option:eq(' + 1 + ')').remove(); //retira branco
-		        }
-	        });
-        });
+                
+                var select = $("#id_select").val();
+                
+                if (select > 0) {
+
+                    $('#id_apartamento option[value=' + select + ']').attr('selected', 'selected');
+                    
+                }
+		    }
+        }
 
     </script>
 }

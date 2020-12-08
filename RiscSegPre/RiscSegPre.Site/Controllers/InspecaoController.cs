@@ -57,6 +57,12 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
+                if (fotoApartamento == null)
+                    ModelState.AddModelError("fotoApartamento", "Campo Obrigatorio.");
+
+                if (fotoPredio == null)
+                    ModelState.AddModelError("fotoPredio", "Campo Obrigatorio.");
+
                 if (ModelState.IsValid)
                 {
                     inspecao = CalcularNota.CalcularRisco(inspecao);
@@ -71,12 +77,12 @@ namespace RiscSegPre.Site.Controllers
                 else
                 {
                     ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
-                    ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_apartamento);
+                    ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_select == 0 ? inspecao.id_apartamento : inspecao.id_select);
                     ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
                     ViewBag.ItensClientes = (IEnumerable<SelectListItem>)CarregarClientes(inspecao.id_cliente);
 
-                    inspecao.fotoApartamento = fotoApartamento.FileName;
-                    inspecao.fotoPredio = fotoPredio.FileName;
+                    inspecao.fotoApartamento = fotoApartamento == null ? string.Empty : fotoApartamento.FileName;
+                    inspecao.fotoPredio = fotoPredio == null ? string.Empty : fotoPredio.FileName;
 
                     this.ShowMessage("Existe campo(s) que devem ser preenchidos!", ToastrDialogType.Info);
 
