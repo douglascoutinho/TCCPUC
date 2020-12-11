@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RiscSegPre.Domain.Entities;
 using RiscSegPre.Domain.IRepositories;
 using RiscSegPre.Site.Extentions.Menssagem;
+using System.Linq;
 
 namespace RiscSegPre.Site.Controllers
 {
@@ -10,10 +11,12 @@ namespace RiscSegPre.Site.Controllers
     public class ClienteController : Controller
     {
         private readonly IClienteRepository clienteRepository;
+        private readonly IInspecaoRepository inspecaoRepository;
 
-        public ClienteController(IClienteRepository clienteRepository)
+        public ClienteController(IClienteRepository clienteRepository, IInspecaoRepository inspecaoRepository)
         {
             this.clienteRepository = clienteRepository;
+            this.inspecaoRepository = inspecaoRepository;
         }
 
         public ActionResult Index()
@@ -80,10 +83,15 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
+                var objetoVinculado = inspecaoRepository.GetAll(x => x.id_cliente == id).Any();
+
                 var objeto = clienteRepository.GetById(id);
                 var result = string.Empty;
 
-                if (objeto != null)
+                if (objetoVinculado)
+                    result = "1";
+
+                else if (objeto != null)
                     clienteRepository.Delete(objeto);
 
                 else

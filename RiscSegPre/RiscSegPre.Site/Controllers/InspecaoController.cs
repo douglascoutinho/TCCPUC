@@ -63,19 +63,25 @@ namespace RiscSegPre.Site.Controllers
                 if (fotoPredio == null)
                     ModelState.AddModelError("fotoPredio", "Campo Obrigatorio.");
 
+                if (inspecao.id_apartamento == 0)
+                    ModelState.AddModelError("id_apartamento", "Campo Obrigatorio.");
+
+                if (inspecao.id_predio == 0)
+                    ModelState.AddModelError("id_apartamento", "Campo Obrigatorio.");
+
                 if (ModelState.IsValid)
                 {
                     inspecao = CalcularNota.CalcularRisco(inspecao);
 
-                    inspecao.fotoApartamento = fotoApartamento.FileName;
-                    inspecao.fotoPredio = fotoPredio.FileName;
+                    inspecao.fotoApartamento = "FA" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM", "").Replace("AM", "") + "." + fotoApartamento.ContentType.Split("/")[1];
+                    inspecao.fotoPredio = "FP" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM", "").Replace("AM", "") + "." + fotoPredio.ContentType.Split("/")[1];
 
                     inspecaoRepository.Insert(inspecao);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
                 else
-                {
+                 {
                     ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
                     ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_select == 0 ? inspecao.id_apartamento : inspecao.id_select);
                     ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
@@ -137,13 +143,14 @@ namespace RiscSegPre.Site.Controllers
 
                     if (fotoApartamento == null)
                         inspecao.fotoApartamento = _inspecao.fotoApartamento;
-                    else inspecao.fotoApartamento = fotoApartamento.FileName;
+
+                    else inspecao.fotoApartamento = inspecao.fotoApartamento = "FA" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM","").Replace("AM","") + "." + fotoApartamento.ContentType.Split("/")[1];
 
                     if (fotoPredio == null)
                         inspecao.fotoPredio = _inspecao.fotoPredio;
 
-                    else inspecao.fotoPredio = fotoPredio.FileName;
-
+                    else inspecao.fotoPredio = inspecao.fotoPredio = "FP" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM", "").Replace("AM", "") + "." + fotoPredio.ContentType.Split("/")[1];
+                    
                     inspecao = CalcularNota.CalcularRisco(inspecao);
                     inspecaoRepository.Update(inspecao);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);

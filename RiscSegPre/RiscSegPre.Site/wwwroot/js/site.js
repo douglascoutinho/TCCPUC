@@ -9,7 +9,7 @@
     var valores = $(".nota");
     //  valores.mask('000.000,00', { reverse: true });
     valores.mask('000', { reverse: true });
-    valores.removeAttr('data-val-number');
+    valores.removeAttr('data-val-number'); 
 
 
 });

@@ -7,6 +7,7 @@ using RiscSegPre.Domain.IRepositories;
 using RiscSegPre.Site.Extentions.Menssagem;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RiscSegPre.Site.Controllers
 {
@@ -17,13 +18,15 @@ namespace RiscSegPre.Site.Controllers
         private readonly IDelegaciaPoliciaCivilRepository delegaciaPoliciaCivilRepository;
         private readonly IBatalhaoPoliciaMilitarRepository batalhaoPoliciaMilitarRepository;
         private readonly IRiscoRepository riscoRepository;
+        private readonly IInspecaoRepository inspecaoRepository;
 
-        public BairroController(IBairroRepository bairroRepository, IDelegaciaPoliciaCivilRepository delegaciaPoliciaCivilRepository, IBatalhaoPoliciaMilitarRepository batalhaoPoliciaMilitarRepository, IRiscoRepository riscoRepository)
+        public BairroController(IBairroRepository bairroRepository, IDelegaciaPoliciaCivilRepository delegaciaPoliciaCivilRepository, IBatalhaoPoliciaMilitarRepository batalhaoPoliciaMilitarRepository, IRiscoRepository riscoRepository, IInspecaoRepository inspecaoRepository)
         {
             this.bairroRepository = bairroRepository;
             this.delegaciaPoliciaCivilRepository = delegaciaPoliciaCivilRepository;
             this.batalhaoPoliciaMilitarRepository = batalhaoPoliciaMilitarRepository;
             this.riscoRepository = riscoRepository;
+            this.inspecaoRepository = inspecaoRepository;
         }
 
         public ActionResult Index()
@@ -54,6 +57,7 @@ namespace RiscSegPre.Site.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    bairro.dt_atualizacao = null;
                     bairroRepository.Insert(bairro);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
@@ -61,7 +65,7 @@ namespace RiscSegPre.Site.Controllers
 
                 return View();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }
@@ -83,6 +87,7 @@ namespace RiscSegPre.Site.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    bairro.dt_atualizacao = DateTime.Now;
                     bairroRepository.Update(bairro);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
@@ -101,10 +106,15 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
+                var objetoVinculado = inspecaoRepository.GetAll(x => x.id_bairro == id).Any();
+
                 var objeto = bairroRepository.GetById(id);
                 var result = string.Empty;
 
-                if (objeto != null)
+                if (objetoVinculado)
+                    result = "1";
+
+                else if (objeto != null)
                     bairroRepository.Delete(objeto);
 
                 else

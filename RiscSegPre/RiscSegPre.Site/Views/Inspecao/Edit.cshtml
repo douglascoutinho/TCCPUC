@@ -5,6 +5,35 @@
 }
 
 
+
+<style type="text/css">
+
+    .fileinput {
+        padding: 5px;
+        background: aliceblue;
+        display: table;
+        color: black;
+        border: 1px solid black;
+    }
+
+    .button {
+        transition-duration: 0.4s;
+    }
+
+        .button:hover {
+            background-color: #87CEFA; /* Green */
+            color: black;
+        }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .lbl {
+        padding: 7px;
+    }
+</style>
+
 <section>
     <div class="spacer">
         <h6>Atualizar: <b>@ViewData["Title"]</b></h6>
@@ -73,31 +102,35 @@
                         <span asp-validation-for="id_apartamento" class="text-danger"></span>
                     </div>
                 </div>
-                <label asp-for="fotoApartamento" class="control-label">Foto Apartamento</label>
-                <div class="form-row">
 
-                    <div class="form-group col-md-5">
-                        <input type="file" asp-for="fotoApartamento" accept="image/*" data-show-preview="false" />
-                    </div>
-                    @*<div class="col-md-1">
-                            <p>
-                                <a href="#" id="addImgApartamento" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i></a>
-                            </p>
-                        </div>*@
-                </div>
-                <label asp-for="fotoPredio" class="control-label">Foto Prédio</label>
+                <label asp-for="fotoApartamento" class="control-label"></label>
                 <div class="form-row">
-                    <div class="form-group col-md-5">
-                        <input type="file" asp-for="fotoPredio" accept="image/*" data-show-preview="false" />
+                    <div class="form-group col-md-2">
+
+                        <label class="fileinput button">
+                            Escolher Foto
+                            <input size="60" type="file" asp-for="fotoApartamento" accept="image/*" data-show-preview="false" />
+                        </label>
                     </div>
-                    <!--<div class="col-md-1">
-                    <p>
-                        <a href="#" id="addImgPredio" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i>-->
-                    @*<span>Add New Employee</span>*@
-                    <!--</a>
-                        </p>
-                    </div>-->
+                    <div class="form-group col-md-5">
+                        <label id="lblApartamento" class="control-label lbl">@Model.fotoApartamento</label>
+                    </div>
                 </div>
+
+                <label asp-for="fotoPredio" class="control-label"></label>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+
+                        <label class="fileinput button">
+                            Escolher Foto
+                            <input size="60" type="file" asp-for="fotoPredio" accept="image/*" data-show-preview="false" />
+                        </label>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label id="lblPredio" class="control-label lbl">@Model.fotoPredio</label>
+                    </div>
+                </div>
+
             </div>
             <div class="tab-pane fade" id="tecnico" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="spacer"></div>
@@ -250,6 +283,24 @@
 @section scripts{
 
     <script type="text/javascript">
+
+        $("#fotoApartamento").change(function () {
+
+            var fileApartamento = $('#fotoApartamento')[0].files[0];
+            if (fileApartamento) {
+
+                $('#lblApartamento').text(fileApartamento.name);
+            }
+        });
+
+        $("#fotoPredio").change(function () {
+
+            var fileApartamento = $('#fotoPredio')[0].files[0];
+            if (fileApartamento) {
+
+                $('#lblPredio').text(fileApartamento.name);
+            }
+        });
 
         $(document).ready(function () {
 

@@ -4,6 +4,35 @@
     ViewData["Title"] = "Inspeção";
 }
 
+
+<style type="text/css">
+
+    .fileinput {
+        padding: 5px;
+        background: aliceblue;
+        display: table;
+        color: black;
+        border: 1px solid black;
+    }
+
+    .button {
+        transition-duration: 0.4s;
+    }
+
+        .button:hover {
+            background-color: #87CEFA; /* Green */
+            color: black;
+        }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .lbl {
+        padding: 7px;
+    }
+</style>
+
 <section>
     <div class="spacer">
         <h6>Cadastrar: <b>@ViewData["Title"]</b></h6>
@@ -13,19 +42,19 @@
         <input type="hidden" asp-for="id_select" />
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#inspecao" role="tab" aria-controls="home" aria-selected="true">Inspeção</a>
+                <a class="nav-link active" id="inspecao-tab" data-toggle="tab" href="#inspecao" role="tab" aria-controls="inspecao" aria-selected="true">Inspeção</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tecnico" role="tab" aria-controls="profile" aria-selected="false">Notas Meios Técnicos</a>
+                <a class="nav-link" id="tecnico-tab" data-toggle="tab" href="#tecnico" role="tab" aria-controls="tecnico" aria-selected="false">Notas Meios Técnicos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#fisico" role="tab" aria-controls="contact" aria-selected="false">Notas Meios Físicos</a>
+                <a class="nav-link" id="fisico-tab" data-toggle="tab" href="#fisico" role="tab" aria-controls="fisico" aria-selected="false">Notas Meios Físicos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#procedimento" role="tab" aria-controls="contact" aria-selected="false">Notas Procedimentos</a>
+                <a class="nav-link" id="procedimento-tab" data-toggle="tab" href="#procedimento" role="tab" aria-controls="procedimento" aria-selected="false">Notas Procedimentos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#humano" role="tab" aria-controls="contact" aria-selected="false">Notas Meios Humanos</a>
+                <a class="nav-link" id="humano-tab" data-toggle="tab" href="#humano" role="tab" aria-controls="humano" aria-selected="false">Notas Meios Humanos</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -35,7 +64,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label asp-for="distanciaComunidade" class="control-label"></label>
-                        <input asp-for="distanciaComunidade" class="form-control" />
+                        <input asp-for="distanciaComunidade" class="form-control" autofocus />
                         <span asp-validation-for="distanciaComunidade" class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-4">
@@ -65,40 +94,53 @@
                         <label asp-for="id_apartamento" class="control-label"></label>
                         <select asp-for="id_apartamento" asp-items="@ViewBag.ItensApartamentos" class="form-control">
                         </select>
-                        <span asp-validation-for="id_apartamento" class="text-danger"></span>
+                        <span class="text-danger field-validation-error errorApartamento" data-valmsg-for="" data-valmsg-replace="true" style="display:none">
+                            <span id="Apartamento-error" asp-validation-for="id_apartamento" class=""> Cadastre pelo menos um apartamento para o prédio selecionado.</span>
+                        </span>
                     </div>
                 </div>
-                <label asp-for="fotoApartamento" class="control-label">Foto Apartamento</label>
-                <div class="form-row">
 
-                    <div class="form-group col-md-5">
-                        <input type="file" asp-for="fotoApartamento" accept="image/*" data-show-preview="true" />
+                <label asp-for="fotoApartamento" class="control-label"></label>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label class="fileinput button">
+                            Escolher Foto
+                            <input size="60" type="file" asp-for="fotoApartamento" accept="image/*" data-show-preview="false" />
+                        </label>
                         <div>
                             <span asp-validation-for="fotoApartamento" class="text-danger"></span>
+                            <span class="text-danger field-validation-error errorfotoApartamento" data-valmsg-for="" data-valmsg-replace="true" style="display:none">
+                                <span id="fotoApartamento-error" asp-validation-for="fotoApartamento" class=""> Campo Obrigatório.</span>
+                            </span>
                         </div>
+
                     </div>
-                    @*<div class="col-md-1">
-                            <p>
-                                <a href="#" id="addImgApartamento" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i></a>
-                            </p>
-                        </div>*@
-                </div>
-                <label asp-for="fotoPredio" class="control-label">Foto Prédio</label>
-                <div class="form-row">
                     <div class="form-group col-md-5">
-                        <input type="file" asp-for="fotoPredio" accept="image/*" data-show-preview="true" />
+                        <label id="lblApartamento" class="control-label lbl"></label>
+                    </div>
+                </div>
+
+                <label asp-for="fotoPredio" class="control-label"></label>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+
+                        <label class="fileinput button">
+                            Escolher Foto
+                            <input size="60" type="file" asp-for="fotoPredio" accept="image/*" data-show-preview="false" />
+                        </label>
                         <div>
                             <span asp-validation-for="fotoPredio" class="text-danger"></span>
+                            <span class="text-danger field-validation-error errorfotoPredio" data-valmsg-for="" data-valmsg-replace="true" style="display:none">
+                                <span id="fotoPredio-error" asp-validation-for="fotoPredio" class=""> Campo Obrigatório.</span>
+                            </span>
                         </div>
                     </div>
-                    <!--<div class="col-md-1">
-                    <p>
-                        <a href="#" id="addImgPredio" class="add" data-toggle="modal" title="Salvar Imagem"><i class="material-icons">&#xE147;</i>-->
-                    @*<span>Add New Employee</span>*@
-                    <!--</a>
-                        </p>
-                    </div>-->
+                    <div class="form-group col-md-5">
+                        <label id="lblPredio" class="control-label lbl"></label>
+                    </div>
                 </div>
+
+
             </div>
             <div class="tab-pane fade" id="tecnico" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="spacer"></div>
@@ -147,7 +189,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label asp-for="id_notaMeioProtecaoFisicoNavigation.sistemaDeteccaoIntruso" class="control-label"></label>
-                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.sistemaDeteccaoIntruso" class="form-control nota" />
+                        <input asp-for="id_notaMeioProtecaoFisicoNavigation.sistemaDeteccaoIntruso" class="form-control nota" autofocus />
                         <span asp-validation-for="id_notaMeioProtecaoFisicoNavigation.sistemaDeteccaoIntruso" class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-2">
@@ -238,7 +280,7 @@
         <div class="modal-footer">
             <div class="row">
                 <div class="form-group">
-                    <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
+                    <input type="submit" id="btnSalvar" value="Salvar" class="btn btn-sm btn-primary" />
                     <a href='@Url.Action("Index", "Inspecao")' class="btn btn-sm btn-primary">Voltar</a>
                 </div>
             </div>
@@ -253,6 +295,7 @@
 
         $(document).ready(function () {
 
+            $('#id_apartamento').attr('disabled', 'false');
 
             if ($('#id_apartamento').val() > 0) {
 
@@ -260,25 +303,69 @@
                 $('#id_select').val(apartamento);
             }
 
-
             if ($('#id_predio').val() != 0) {
 
                   carregarPredioApartamento();
             }
 
-            $('#id_apartamento').attr('disabled', 'false');
-
-
             $('#id_predio').change(function () {
+
+                carregarPredioApartamento();
+            });
+
+            $('#id_apartamento').change(function () {
 
                 var apartamento = $('#id_apartamento').val();
                 $('#id_select').val(apartamento);
+            });
 
-                carregarPredioApartamento();
+        });
 
-             });
+        $.validator.setDefaults({
+            ignore: []
+        });
 
-          });
+        $("#fotoApartamento").change(function () {
+
+            var fileApartamento = $('#fotoApartamento')[0].files[0];
+            if (fileApartamento) {
+
+                $('#lblApartamento').text(fileApartamento.name);
+            }
+        });
+
+        $("#fotoPredio").change(function () {
+
+            var fileApartamento = $('#fotoPredio')[0].files[0];
+            if (fileApartamento) {
+
+                $('#lblPredio').text(fileApartamento.name);
+            }
+        });
+
+        $("#btnSalvar").click(function () {
+
+            var filePredio = $('#fotoPredio')[0].files[0];
+            var fileApartamento = $('#fotoApartamento')[0].files[0];
+
+            if (filePredio) {
+
+                $(".errorfotoPredio").css("display", "none");
+            }
+            else {
+
+                $(".errorfotoPredio").css("display", "block");
+            }
+
+            if (fileApartamento) {
+
+                $(".errorfotoApartamento").css("display", "none");
+            }
+            else {
+
+                $(".errorfotoApartamento").css("display", "block");
+            }
+        });
 
         function carregarPredioApartamento(){
 
@@ -317,9 +404,13 @@
 			    success: function(data) {
                     if (data != "") {
                         $('#id_apartamento').removeAttr('disabled');
+
+                        $(".errorApartamento").css("display", "none");
                         callbackFunction(data); //IMPORTANTE
                     }
                     else {
+
+                        $(".errorApartamento").css("display", "block");
                         $('#id_apartamento').attr('disabled', 'false');
                     }
 			    }
@@ -334,13 +425,13 @@
 			    });
                 $('#id_apartamento option:eq(' + 1 + ')').remove(); //retira branco
 
-                
+
                 var select = $("#id_select").val();
-                
+
                 if (select > 0) {
 
                     $('#id_apartamento option[value=' + select + ']').attr('selected', 'selected');
-                    
+
                 }
 		    }
         }

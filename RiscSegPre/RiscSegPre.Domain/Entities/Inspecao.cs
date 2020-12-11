@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -44,7 +45,7 @@ namespace RiscSegPre.Domain.Entities
         [Display(Name = "Bairro")]
         public int id_bairro { get; set; }
 
-        public int id_select  { get; set; }
+        public int id_select { get; set; } = 0;
 
         public int id_notaMeioProtecaoTecnico { get; set; }
         public int id_notaMeioProtecaoFisico { get; set; }
@@ -67,11 +68,11 @@ namespace RiscSegPre.Domain.Entities
         [Display(Name = "Prédio")]
         public virtual Predio id_predioNavigation { get; set; }
 
-
         public virtual NotaMeioProtecaoFisico id_notaMeioProtecaoFisicoNavigation { get; set; }
         public virtual NotaMeioProtecaoHumano id_notaMeioProtecaoHumanoNavigation { get; set; }
         public virtual NotaMeioProtecaoTecnico id_notaMeioProtecaoTecnicoNavigation { get; set; }
         public virtual NotaAvaliacaoProcedimento id_notaAvaliacaoProcedimentoNavigation { get; set; }
+
 
     }
 }

@@ -41,6 +41,10 @@ namespace RiscSegPre.Domain.Entities
         [Display(Name = "Ocorrências")]
         public string ocorrencias { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
+        [Display(Name = "Data Atualização")]
+        public DateTime? dt_atualizacao { get; set; }
+
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data Cadastro")]
         public DateTime dt_cadastro { get; set; }

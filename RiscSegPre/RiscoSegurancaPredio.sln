@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiscSegPre.Application", "R
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.2 - CrossCutting", "3.2 - CrossCutting", "{FB12C6B1-87BD-4102-BC66-CB3C1927352A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Test", "5 - Test", "{714B081E-6D19-43A3-8C4C-01C79C2188E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiscSegPre.Test", "RiscSegPre.Test\RiscSegPre.Test\RiscSegPre.Test.csproj", "{A9C8F38D-A39A-4671-A9AC-F57A9E6FA5DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,10 @@ Global
 		{19F83A09-C82B-4496-A340-F7580C49FACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19F83A09-C82B-4496-A340-F7580C49FACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19F83A09-C82B-4496-A340-F7580C49FACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9C8F38D-A39A-4671-A9AC-F57A9E6FA5DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C8F38D-A39A-4671-A9AC-F57A9E6FA5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C8F38D-A39A-4671-A9AC-F57A9E6FA5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C8F38D-A39A-4671-A9AC-F57A9E6FA5DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +64,7 @@ Global
 		{02361D95-8D74-41ED-B136-80BC90F144BB} = {5293719C-3651-489C-915F-FDBF2DD3CAA8}
 		{19F83A09-C82B-4496-A340-F7580C49FACD} = {3EE053AF-923C-4260-8A30-1561A682B97B}
 		{FB12C6B1-87BD-4102-BC66-CB3C1927352A} = {9E299B07-BEE4-442E-9187-3CB02085B727}
+		{A9C8F38D-A39A-4671-A9AC-F57A9E6FA5DB} = {714B081E-6D19-43A3-8C4C-01C79C2188E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EDBA59F8-699D-4F7D-82EF-FAE904DC26E3}

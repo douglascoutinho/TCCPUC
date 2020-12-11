@@ -42,6 +42,9 @@
                         @Html.DisplayNameFor(model => model.id_riscoNavigation)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.dt_atualizacao)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.dt_cadastro)
                     </th>
                     <th></th>
@@ -82,6 +85,9 @@
                         @Html.DisplayFor(modelItem => item.id_riscoNavigation.ds_risco)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.dt_atualizacao)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.dt_cadastro)
                     </td>
                     <td>
@@ -118,6 +124,9 @@
                     var linha = $("#" + id);
                     $(linha).parents('tr').remove();
                     toastr.success("Bairro excluido com sucesso.", {});
+                }
+                else if (result.data.length == 1) {
+                    toastr.warning("Existe uma inspeção vinculada ao bairro selecionado.", {});
                 }
             }});
         });

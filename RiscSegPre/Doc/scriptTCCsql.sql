@@ -98,6 +98,7 @@ CREATE TABLE Bairro(
 	 id_delegacia INT NOT NULL,
 	 id_batalhao INT NOT NULL,
 	 id_risco INT NOT NULL,
+	 dt_atualizacao DATETIME NOT NULL,
 	 dt_cadastro DATETIME NOT NULL,
 	 PRIMARY KEY(id_bairro),
 	 CONSTRAINT FK_Delegacia_Bairro FOREIGN KEY (id_delegacia) REFERENCES DelegaciaPoliciaCivil(id_delegacia),

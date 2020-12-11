@@ -35,7 +35,7 @@ namespace RiscSegPre.Infra.Data.Context
         {
             try
             {
-                foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("dt_cadastro") != null))
+                 foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("dt_cadastro") != null))
                 {
                     if (entry.State == EntityState.Added)
                     {
@@ -50,7 +50,7 @@ namespace RiscSegPre.Infra.Data.Context
                 return base.SaveChanges();
             }
             catch (Exception e)
-            {
+              {
                 throw new InvalidOperationException("Erro - Classe: DataContext Método: SaveChanges");
             }
         }
@@ -128,6 +128,8 @@ namespace RiscSegPre.Infra.Data.Context
                 entity.Property(e => e.cisp)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.dt_atualizacao).HasColumnType("datetime");
 
                 entity.Property(e => e.dt_cadastro).HasColumnType("datetime");
 

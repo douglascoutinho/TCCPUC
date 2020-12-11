@@ -59,6 +59,9 @@
                     $(linha).parents('tr').remove();
                     toastr.success("Cliente excluido com sucesso.", {});
                 }
+                else if (result.data.length == 1) {
+                    toastr.warning("Existe uma inspeção vinculada ao cliente selecionado.", {});
+                }
             }});
         });
 

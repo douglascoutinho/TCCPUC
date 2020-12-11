@@ -74,15 +74,15 @@
         </div>
         <div class="checkbox mb-3">
             @*<label>
-                <input type="checkbox" value="remember-me"> Lembrar me
-            </label>*@
+                    <input type="checkbox" value="remember-me"> Lembrar me
+                </label>*@
 
-            
-                <label asp-for="Input.RememberMe">
-                    <input asp-for="Input.RememberMe" />
-                    @Html.DisplayNameFor(m => m.Input.RememberMe)
-                </label>
-            
+
+            <label asp-for="Input.RememberMe">
+                <input asp-for="Input.RememberMe" />
+                @Html.DisplayNameFor(m => m.Input.RememberMe)
+            </label>
+
 
 
 
@@ -98,8 +98,6 @@
     </form>
 </div>
 
-
-
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" /> 
 }
