@@ -1,2 +1,4 @@
 # TCCPUC
-TCC - Risco Segurança Prédios
+Trabalho Conclusão de Curso  
+Pós-Graduação: Analise e Projetos de Sistema
+Projeto: Risco Segurança de Prédios
