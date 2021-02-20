@@ -1,4 +1,4 @@
--- Script Banco de Dados
+use TCC_RISCO
 
 GO 
 	IF OBJECT_ID('Inspecao', 'U') IS NOT NULL
@@ -51,27 +51,27 @@ GO
 GO
 CREATE TABLE DelegaciaPoliciaCivil(
 	 id_delegacia INT IDENTITY(1,1) NOT NULL,
-	 ds_delegacia NVARCHAR(100),
-	 cep NVARCHAR(10),
-	 logradouro NVARCHAR(100),
-	 numero NVARCHAR(100),
-	 complemento NVARCHAR(100),
-	 cidade NVARCHAR(100),
-	 bairro NVARCHAR(100),
-	 estado NVARCHAR(100),
+	 ds_delegacia NVARCHAR(100) NOT NULL,
+	 cep NVARCHAR(10) NOT NULL,
+	 logradouro NVARCHAR(100) NOT NULL,
+	 numero NVARCHAR(100) NULL,
+	 complemento NVARCHAR(100) NULL,
+	 cidade NVARCHAR(100) NOT NULL,
+	 bairro NVARCHAR(100) NOT NULL,
+	 estado NVARCHAR(100) NOT NULL,
 	 PRIMARY KEY(id_delegacia))
 
 GO
 CREATE TABLE BatalhaoPoliciaMilitar(
 	 id_batalhao INT IDENTITY(1,1) NOT NULL,
-	 ds_delegacia NVARCHAR(100),
-	 cep NVARCHAR(10),
-	 logradouro NVARCHAR(100),
-	 numero NVARCHAR(100),
-	 complemento NVARCHAR(100),
-	 cidade NVARCHAR(100),
-	 bairro NVARCHAR(100),
-	 estado NVARCHAR(100), 
+	 ds_delegacia NVARCHAR(100) NOT NULL,
+	 cep NVARCHAR(10) NOT NULL,
+	 logradouro NVARCHAR(100) NOT NULL,
+	 numero NVARCHAR(100) NULL,
+	 complemento NVARCHAR(100) NULL,
+	 cidade NVARCHAR(100) NOT NULL,
+	 bairro NVARCHAR(100) NOT NULL,
+	 estado NVARCHAR(100) NOT NULL, 
 	 PRIMARY KEY(id_batalhao))
 
 GO
@@ -80,10 +80,11 @@ GO
 	 ds_risco NVARCHAR(100) NOT NULL,
 	 PRIMARY KEY(id_risco))
 
-GO
+/*GO
  INSERT INTO Risco(ds_risco) VALUES ('Baixo');
 	INSERT INTO Risco(ds_risco) VALUES ('Médio');
 	INSERT INTO Risco(ds_risco) VALUES ('Alto');
+*/
 
 GO
 CREATE TABLE Bairro(
@@ -98,7 +99,7 @@ CREATE TABLE Bairro(
 	 id_delegacia INT NOT NULL,
 	 id_batalhao INT NOT NULL,
 	 id_risco INT NOT NULL,
-	 dt_atualizacao DATETIME NOT NULL,
+	 dt_atualizacao DATETIME NULL,
 	 dt_cadastro DATETIME NOT NULL,
 	 PRIMARY KEY(id_bairro),
 	 CONSTRAINT FK_Delegacia_Bairro FOREIGN KEY (id_delegacia) REFERENCES DelegaciaPoliciaCivil(id_delegacia),
@@ -115,20 +116,20 @@ GO
 CREATE TABLE Predio(
 	 id_predio INT IDENTITY(1,1) NOT NULL,
 	 nm_predio NVARCHAR(100) NOT NULL,
-	 cep NVARCHAR(10),
-	 logradouro NVARCHAR(100),
-	 numero NVARCHAR(100),
-	 complemento NVARCHAR(100),
-	 cidade NVARCHAR(100),
-	 bairro NVARCHAR(100),
-	 estado NVARCHAR(100),
+	 cep NVARCHAR(10) NOT NULL,
+	 logradouro NVARCHAR(100) NOT NULL,
+	 numero NVARCHAR(100) NULL,
+	 complemento NVARCHAR(100) NULL,
+	 cidade NVARCHAR(100) NOT NULL,
+	 bairro NVARCHAR(100) NOT NULL,
+	 estado NVARCHAR(100) NOT NULL,
 	 PRIMARY KEY(id_predio))
 
 GO
 CREATE TABLE Apartamento(
 	 id_apartamento INT IDENTITY(1,1) NOT NULL,
 	 nm_apartamento NVARCHAR(100) NOT NULL,
-	 numero NVARCHAR(100),
+	 numero NVARCHAR(100) NULL,
 	 id_predio INT NOT NULL,
 	 CONSTRAINT FK_Predio_Apartamento FOREIGN KEY (id_predio) REFERENCES Predio(id_predio),
 	 PRIMARY KEY(id_apartamento))
@@ -203,3 +204,11 @@ CREATE TABLE Inspecao(
 	 CONSTRAINT FK_Inspecao_NotaMeioProtecaoFisico FOREIGN KEY (id_notaMeioProtecaoFisico) REFERENCES NotaMeioProtecaoFisico(id_notaMeioProtecaoFisico),
 	 CONSTRAINT FK_Inspecao_NotaMeioProtecaoHumano FOREIGN KEY (id_notaMeioProtecaoHumano) REFERENCES NotaMeioProtecaoHumano(id_notaMeioProtecaoHumano),
 	 CONSTRAINT FK_Inspecao_NotaAvaliacaoProcedimento FOREIGN KEY (id_notaAvaliacaoProcedimento) REFERENCES notaAvaliacaoProcedimento(id_notaAvaliacaoProcedimento))
+
+	 -- AspNetUsers Migrations
+	 GO
+	 DELETE FROM AspNetUsers
+
+	 GO
+	 INSERT INTO AspNetUsers(id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash /*Admin@01*/, SecurityStamp, ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount) 
+	 VALUES ('4f9dd562-5553-43fa-bc01-926e28288e2b', 'teste@teste.com', 'TESTE@TESTE.COM', 'teste@teste.com', 'TESTE@TESTE.COM', 1,	'AQAAAAEAACcQAAAAEJoLS7ZxPRPkoOCtPyxJojDJR6JJlsiSzHD56DTYXlZYHcyULeVA9Og4ftz61vODgg==',	'3RLTAIVHH7THIFNXMBN4H2O2KJJGWFKS',	'2e327318-217d-42d9-b2bb-efec494f122d',	NULL, 0, 0,	NULL, 1, 0)
