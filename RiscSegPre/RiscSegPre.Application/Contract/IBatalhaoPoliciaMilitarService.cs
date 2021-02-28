@@ -8,8 +8,8 @@ namespace RiscSegPre.Application.Contract
     public interface IBatalhaoPoliciaMilitarService : IDisposable
     {
         void Cadastrar(BatalhaoPoliciaMilitarModel model);
-        List<BatalhaoPoliciaMilitarModel> ConsultarTodos();
         void Atualizar(BatalhaoPoliciaMilitarModel model);
+        List<BatalhaoPoliciaMilitarModel> ConsultarTodos();
         BatalhaoPoliciaMilitarModel ConsultarPorId(int id);
         string Excluir(int id);
         IEnumerable<SelectListItem> CarregarBatalhoes(int selecionado);

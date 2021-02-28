@@ -25,16 +25,16 @@ namespace RiscSegPre.Application.Services
             repository.Insert(batalhao);
         }
 
-        public List<BatalhaoPoliciaMilitarModel> ConsultarTodos()
-        {
-            var batalhoes = repository.GetAll();
-            return _mapper.Map<List<BatalhaoPoliciaMilitarModel>>(batalhoes);
-        }
-
         public void Atualizar(BatalhaoPoliciaMilitarModel model)
         {
             var batalhao = _mapper.Map<BatalhaoPoliciaMilitar>(model);
             repository.Update(batalhao);
+        }
+
+        public List<BatalhaoPoliciaMilitarModel> ConsultarTodos()
+        {
+            var batalhoes = repository.GetAll();
+            return _mapper.Map<List<BatalhaoPoliciaMilitarModel>>(batalhoes);
         }
 
         public BatalhaoPoliciaMilitarModel ConsultarPorId(int id)
@@ -64,6 +64,7 @@ namespace RiscSegPre.Application.Services
         {
             return new SelectList(repository.GetDictionary(), "Key", "Value");
         }
+
         public void Dispose()
         {
             repository.Dispose();

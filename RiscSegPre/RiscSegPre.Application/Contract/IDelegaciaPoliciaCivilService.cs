@@ -8,7 +8,6 @@ namespace RiscSegPre.Application.Contract
     public interface IDelegaciaPoliciaCivilService : IDisposable
     {
         void Cadastrar(DelegaciaPoliciaCivilModel model);
-        
         void Atualizar(DelegaciaPoliciaCivilModel model);
         List<DelegaciaPoliciaCivilModel> ConsultarTodos();
         DelegaciaPoliciaCivilModel ConsultarPorId(int id);

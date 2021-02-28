@@ -182,7 +182,7 @@ CREATE TABLE Inspecao(
 	 distanciaComunidade NVARCHAR(100) NOT NUll,
 	 motivoReprovacao NVARCHAR(100) NULL,
 	 nota DECIMAL NOT NULL,
-	 situacao NVARCHAR(100) NOT NULL,
+	 situacao NVARCHAR(100) NULL,
 	 fotoPredio NVARCHAR(100) NULL,
 	 fotoApartamento NVARCHAR(100) NULL,
 	 id_cliente INT NOT NULL,
