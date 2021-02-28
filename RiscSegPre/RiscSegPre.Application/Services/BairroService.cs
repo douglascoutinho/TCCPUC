@@ -25,19 +25,18 @@ namespace RiscSegPre.Application.Services
             var bairro = _mapper.Map<Bairro>(model);
             repository.Insert(bairro);
         }
-
-        public List<BairroModel> ConsultarTodos()
-        {
-            var bairros = repository.GetAll();
-            return _mapper.Map<List<BairroModel>>(bairros);
-        }
-
         public void Atualizar(BairroModel model)
         {
             var bairro = _mapper.Map<Bairro>(model);
             repository.Update(bairro);
         }
 
+        public List<BairroModel> ConsultarTodos()
+        {
+            var bairros = repository.GetAll();
+            return _mapper.Map<List<BairroModel>>(bairros);
+        }
+        
         public BairroModel ConsultarPorId(int id)
         {
             var bairro = repository.GetById(id);
@@ -69,6 +68,11 @@ namespace RiscSegPre.Application.Services
         public bool ExisteBatalhao(int id_batalhao)
         {
             return repository.GetAll(x => x.id_batalhao == id_batalhao).Any();
+        }
+
+        public bool ExisteDelegacia(int id_delegacia)
+        {
+            return repository.GetAll(x => x.id_delegacia == id_delegacia).Any();
         }
 
         public void Dispose()

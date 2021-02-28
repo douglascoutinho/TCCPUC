@@ -8,12 +8,13 @@ namespace RiscSegPre.Application.Contract
     public interface IBairroService : IDisposable
     {
         void Cadastrar(BairroModel model);
-        List<BairroModel> ConsultarTodos();
         void Atualizar(BairroModel model);
+        List<BairroModel> ConsultarTodos();
         BairroModel ConsultarPorId(int id);
         string Excluir(int id);
         IEnumerable<SelectListItem> CarregarBairros(int selecionado);
         IEnumerable<SelectListItem> CarregarBairros();
         bool ExisteBatalhao(int id_batalhao);
+        bool ExisteDelegacia(int id_delegacia);
     }
 }

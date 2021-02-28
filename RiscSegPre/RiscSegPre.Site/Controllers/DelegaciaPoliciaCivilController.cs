@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RiscSegPre.Application.Contract;
 using RiscSegPre.Application.Models;
-using RiscSegPre.Domain.IRepositories;
 using RiscSegPre.Site.Extentions.Menssagem;
-using System.Linq;
 
 namespace RiscSegPre.Site.Controllers
 {
@@ -13,12 +11,12 @@ namespace RiscSegPre.Site.Controllers
     {
 
         private readonly IDelegaciaPoliciaCivilService policiaCivilService;
-        private readonly IBairroRepository bairroRepository;
+        private readonly IBairroService bairroService;
 
-        public DelegaciaPoliciaCivilController(IDelegaciaPoliciaCivilService policiaCivilService, IBairroRepository bairroRepository)
+        public DelegaciaPoliciaCivilController(IDelegaciaPoliciaCivilService policiaCivilService, IBairroService bairroService)
         {
             this.policiaCivilService = policiaCivilService;
-            this.bairroRepository = bairroRepository;
+            this.bairroService = bairroService;
         }
 
         public ActionResult Index()
@@ -83,7 +81,7 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var existe = bairroRepository.GetAll(x => x.id_batalhao == id).Any();
+                var existe = bairroService.ExisteDelegacia(id);//  bairroRepository.GetAll(x => x.id_batalhao == id).Any();
 
                 if (!existe)
                     return Json(new { data = policiaCivilService.Excluir(id) });
