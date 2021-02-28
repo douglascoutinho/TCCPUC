@@ -11,7 +11,7 @@ namespace RiscSegPre.Application.Contract
         void Atualizar(ApartamentoModel model);
         List<ApartamentoModel> ConsultarTodos();
         ApartamentoModel ConsultarPorId(int id);
-        List<ApartamentoModel> ConsultarPorPredio(int id);
+        List<ApartamentoModel> ConsultarPorPredio(int id_predio);
         string Excluir(int id);
         bool ExisteApartamento(int id_predio);
         IEnumerable<SelectListItem> CarregarApartamentos(int selecionado);
