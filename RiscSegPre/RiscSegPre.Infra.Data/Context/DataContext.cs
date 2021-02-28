@@ -292,8 +292,6 @@ namespace RiscSegPre.Infra.Data.Context
                     .HasForeignKey(d => d.id_predio)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inspecao_Predio");
-
-                entity.Ignore(p => p.id_select);
             });
 
             modelBuilder.Entity<NotaAvaliacaoProcedimento>(entity =>

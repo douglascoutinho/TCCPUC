@@ -1,40 +1,30 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace RiscSegPre.Domain.Entities
 {
     public partial class NotaAvaliacaoProcedimento
     {
-        public NotaAvaliacaoProcedimento()
+        protected NotaAvaliacaoProcedimento()
         {
             Inspecao = new HashSet<Inspecao>();
         }
 
-        public int id_notaAvaliacaoProcedimento { get; set; }
+        public NotaAvaliacaoProcedimento(int id_notaAvaliacaoProcedimento, int especificosLocal, int organizacaoSeguranca, int treinamentoConscientizacaoSeguranca, int segurancaEmergenciaExpatriados)
+        {
+            this.id_notaAvaliacaoProcedimento = id_notaAvaliacaoProcedimento;
+            this.especificosLocal = especificosLocal;
+            this.organizacaoSeguranca = organizacaoSeguranca;
+            this.treinamentoConscientizacaoSeguranca = treinamentoConscientizacaoSeguranca;
+            this.segurancaEmergenciaExpatriados = segurancaEmergenciaExpatriados;
+        }
 
-        //[DataType(DataType.Currency)]
-        //[Column(TypeName = "decimal(3)")]
-        [Display(Name = "Local Específico")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int especificosLocal { get; set; }
-        
-        [Display(Name = "Organização e Segurança")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int organizacaoSeguranca { get; set; }
-        
-        [Display(Name = "Treinamento Segurança")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int treinamentoConscientizacaoSeguranca { get; set; }
+        public int id_notaAvaliacaoProcedimento { get; private set; }
+        public int especificosLocal { get; private set; }
+        public int organizacaoSeguranca { get; private set; }
+        public int treinamentoConscientizacaoSeguranca { get; private set; }
+        public int segurancaEmergenciaExpatriados { get; private set; }
 
-        [Display(Name = "Segurança Emergencial")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int segurancaEmergenciaExpatriados { get; set; }
-
-        public virtual ICollection<Inspecao> Inspecao { get; set; }
+        public virtual ICollection<Inspecao> Inspecao { get; private set; }
 
         public decimal CalcularMedia(Inspecao inspecao)
         {

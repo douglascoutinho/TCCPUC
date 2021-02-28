@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RiscSegPre.Domain.Entities;
+using RiscSegPre.Application.Contract;
+using RiscSegPre.Application.Models;
 using RiscSegPre.Domain.IRepositories;
 using RiscSegPre.Site.Extentions.Menssagem;
 using System.Linq;
@@ -11,18 +12,18 @@ namespace RiscSegPre.Site.Controllers
     public class DelegaciaPoliciaCivilController : Controller
     {
 
-        private readonly IDelegaciaPoliciaCivilRepository delegaciaPoliciaCivilRepository;
+        private readonly IDelegaciaPoliciaCivilService policiaCivilService;
         private readonly IBairroRepository bairroRepository;
 
-        public DelegaciaPoliciaCivilController(IDelegaciaPoliciaCivilRepository delegaciaPoliciaCivilRepository, IBairroRepository bairroRepository)
+        public DelegaciaPoliciaCivilController(IDelegaciaPoliciaCivilService policiaCivilService, IBairroRepository bairroRepository)
         {
-            this.delegaciaPoliciaCivilRepository = delegaciaPoliciaCivilRepository;
+            this.policiaCivilService = policiaCivilService;
             this.bairroRepository = bairroRepository;
         }
 
         public ActionResult Index()
         {
-            return View(delegaciaPoliciaCivilRepository.GetAll());
+            return View(policiaCivilService.ConsultarTodos());
         }
 
         public ActionResult Create()
@@ -32,13 +33,13 @@ namespace RiscSegPre.Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DelegaciaPoliciaCivil delegaciaPoliciaCivil)
+        public ActionResult Create(DelegaciaPoliciaCivilModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    delegaciaPoliciaCivilRepository.Insert(delegaciaPoliciaCivil);
+                    policiaCivilService.Cadastrar(model);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
@@ -53,18 +54,18 @@ namespace RiscSegPre.Site.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View(delegaciaPoliciaCivilRepository.GetById(id));
+            return View(policiaCivilService.ConsultarPorId(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(DelegaciaPoliciaCivil delegaciaPoliciaCivil)
+        public ActionResult Edit(DelegaciaPoliciaCivilModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    delegaciaPoliciaCivilRepository.Update(delegaciaPoliciaCivil);
+                    policiaCivilService.Atualizar(model);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
@@ -82,21 +83,12 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var objetoVinculado = bairroRepository.GetAll(x => x.id_delegacia == id).Any();
+                var existe = bairroRepository.GetAll(x => x.id_batalhao == id).Any();
 
-                var objeto = delegaciaPoliciaCivilRepository.GetById(id);
-                var result = string.Empty;
+                if (!existe)
+                    return Json(new { data = policiaCivilService.Excluir(id) });
 
-                if (objetoVinculado)
-                    result = "1";
-
-                else if (objeto != null)
-                    delegaciaPoliciaCivilRepository.Delete(objeto);
-
-                else
-                    result = "Error";
-
-                return Json(new { data = result });
+                else return Json(new { data = "1" });
             }
             catch
             {

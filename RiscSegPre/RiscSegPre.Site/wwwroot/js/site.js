@@ -10,11 +10,9 @@
     //  valores.mask('000.000,00', { reverse: true });
     valores.mask('000', { reverse: true });
     valores.removeAttr('data-val-number'); 
-
-
 });
 
-toastr.options = { "positionClass": "toast-top-center", "progressBar": true, "preventDuplicates": true, "timeOut": "3000" };
+toastr.options = { "positionClass": "toast-top-center", "progressBar": true, "preventDuplicates": false, "timeOut": "3000" };
 
 function showCookieMessage(cookieName, type) {
 
@@ -36,7 +34,7 @@ function showMessage(message, type) {
         "debug": false,
         "newestOnTop": false,
         "progressBar": true,
-        "preventDuplicates": true,
+        "preventDuplicates": false,
         "onclick": null,
         "hideDuration": "1000",
         "timeOut": "5000",

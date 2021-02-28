@@ -1,43 +1,35 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using RiscSegPre.Domain.Entities;
-using RiscSegPre.Domain.IRepositories;
+using RiscSegPre.Application.Contract;
+using RiscSegPre.Application.Models;
 using RiscSegPre.Site.Extentions.Menssagem;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RiscSegPre.Site.Controllers
 {
     [Authorize]
     public class BairroController : Controller
     {
-        private readonly IBairroRepository bairroRepository;
-        private readonly IDelegaciaPoliciaCivilRepository delegaciaPoliciaCivilRepository;
-        private readonly IBatalhaoPoliciaMilitarRepository batalhaoPoliciaMilitarRepository;
-        private readonly IRiscoRepository riscoRepository;
-        private readonly IInspecaoRepository inspecaoRepository;
+        private readonly IBairroService bairroService;
+        private readonly IInspecaoService inspecaoService;
+        private readonly IDelegaciaPoliciaCivilService policiaCivilService;
+        private readonly IBatalhaoPoliciaMilitarService policiaMilitarService;
+        private readonly IRiscoService riscoService;
 
-        public BairroController(IBairroRepository bairroRepository, IDelegaciaPoliciaCivilRepository delegaciaPoliciaCivilRepository, IBatalhaoPoliciaMilitarRepository batalhaoPoliciaMilitarRepository, IRiscoRepository riscoRepository, IInspecaoRepository inspecaoRepository)
+        public BairroController(IBairroService bairroService, IInspecaoService inspecaoService, IDelegaciaPoliciaCivilService policiaCivilService, IBatalhaoPoliciaMilitarService policiaMilitarService, IRiscoService riscoService)
         {
-            this.bairroRepository = bairroRepository;
-            this.delegaciaPoliciaCivilRepository = delegaciaPoliciaCivilRepository;
-            this.batalhaoPoliciaMilitarRepository = batalhaoPoliciaMilitarRepository;
-            this.riscoRepository = riscoRepository;
-            this.inspecaoRepository = inspecaoRepository;
+            this.bairroService = bairroService;
+            this.inspecaoService = inspecaoService;
+            this.policiaCivilService = policiaCivilService;
+            this.policiaMilitarService = policiaMilitarService;
+            this.riscoService = riscoService;
         }
 
         public ActionResult Index()
         {
-
-            var bairros = bairroRepository.GetAll()
-                .Include(x => x.id_delegaciaNavigation)
-                .Include(x => x.id_batalhaoNavigation)
-                .Include(x => x.id_riscoNavigation);
-
-            return View(bairros);
+            return View(bairroService.ConsultarTodos());
         }
 
         public ActionResult Create()
@@ -51,19 +43,23 @@ namespace RiscSegPre.Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Bairro bairro)
+        public ActionResult Create(BairroModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    bairro.dt_atualizacao = null;
-                    bairroRepository.Insert(bairro);
+                    model.dt_atualizacao = null;
+                    bairroService.Cadastrar(model);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
 
-                return View();
+                ViewBag.ItensDelegacias = CarregarDelegacias(model.id_delegacia);
+                ViewBag.ItensBatalhoes = CarregarBatalhoes(model.id_batalhao);
+                ViewBag.ItensRiscos = CarregarRiscos(model.id_risco);
+
+                return View(model);
             }
             catch (Exception e)
             {
@@ -73,27 +69,34 @@ namespace RiscSegPre.Site.Controllers
 
         public ActionResult Edit(int id)
         {
-            ViewBag.ItensDelegacias = CarregarDelegacias(id);
-            ViewBag.ItensBatalhoes = CarregarBatalhoes(id);
-            ViewBag.ItensRiscos = CarregarRiscos(id);
-            return View(bairroRepository.GetById(id));
+            var bairro = bairroService.ConsultarPorId(id);
+
+            ViewBag.ItensDelegacias = CarregarDelegacias(bairro.id_delegacia);
+            ViewBag.ItensBatalhoes = CarregarBatalhoes(bairro.id_batalhao);
+            ViewBag.ItensRiscos = CarregarRiscos(bairro.id_risco);
+
+            return View(bairro);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Bairro bairro)
+        public ActionResult Edit(BairroModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    bairro.dt_atualizacao = DateTime.Now;
-                    bairroRepository.Update(bairro);
+                    model.dt_atualizacao = DateTime.Now;
+                    bairroService.Atualizar(model);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
 
-                return View();
+                ViewBag.ItensDelegacias = CarregarDelegacias(model.id_delegacia);
+                ViewBag.ItensBatalhoes = CarregarBatalhoes(model.id_batalhao);
+                ViewBag.ItensRiscos = CarregarRiscos(model.id_risco);
+
+                return View(model);
             }
             catch
             {
@@ -106,47 +109,39 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var objetoVinculado = inspecaoRepository.GetAll(x => x.id_bairro == id).Any();
+                bool existe = inspecaoService.ExisteBairro(id);
 
-                var objeto = bairroRepository.GetById(id);
-                var result = string.Empty;
+                if (!existe)
+                    return Json(new { data = bairroService.Excluir(id) });
 
-                if (objetoVinculado)
-                    result = "1";
-
-                else if (objeto != null)
-                    bairroRepository.Delete(objeto);
-
-                else
-                    result = "Error";
-
-                return Json(new { data = result });
+                else return Json(new { data = "1" });
             }
             catch
             {
-                return View();
+                return Json(new { data = "Error" });
             }
+
         }
 
         private IEnumerable<SelectListItem> CarregarDelegacias(int id = 0)
         {
             if (id > 0)
-                return new SelectList(delegaciaPoliciaCivilRepository.GetDictionary(), "Key", "Value", id);
-            return new SelectList(delegaciaPoliciaCivilRepository.GetDictionary(), "Key", "Value");
+                return policiaCivilService.CarregarDelegacias(id);
+            return policiaCivilService.CarregarDelegacias();
         }
 
         private IEnumerable<SelectListItem> CarregarBatalhoes(int id = 0)
         {
             if (id > 0)
-                return new SelectList(batalhaoPoliciaMilitarRepository.GetDictionary(), "Key", "Value", id);
-            return new SelectList(batalhaoPoliciaMilitarRepository.GetDictionary(), "Key", "Value");
+                return policiaMilitarService.CarregarBatalhoes(id);
+            return policiaMilitarService.CarregarBatalhoes();
         }
 
         private IEnumerable<SelectListItem> CarregarRiscos(int id = 0)
         {
             if (id > 0)
-                return new SelectList(riscoRepository.GetDictionary(), "Key", "Value", id);
-            return new SelectList(riscoRepository.GetDictionary(), "Key", "Value");
+                return riscoService.CarregarRiscos(id);
+            return riscoService.CarregarRiscos();
         }
     }
 }

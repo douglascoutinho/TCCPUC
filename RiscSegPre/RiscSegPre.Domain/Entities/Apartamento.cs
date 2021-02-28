@@ -1,33 +1,28 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace RiscSegPre.Domain.Entities
 {
     public partial class Apartamento
     {
-        public Apartamento()
+        protected Apartamento()
         {
             Inspecao = new HashSet<Inspecao>();
         }
 
-        [Key]
-        public int id_apartamento { get; set; }
+        public Apartamento(int id_apartamento, string nm_apartamento, string numero, int id_predio)
+        {
+            this.id_apartamento = id_apartamento;
+            this.nm_apartamento = nm_apartamento;
+            this.numero = numero;
+            this.id_predio = id_predio;
+        }
+        
+        public int id_apartamento { get; private set; }
+        public string nm_apartamento { get; private set; }
+        public string numero { get; private set; }
+        public int id_predio { get; private set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        [Display(Name = "Nome")]
-        public string nm_apartamento { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        [Display(Name = "Número")]
-        public string numero { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        [Display(Name = "Prédio")]
-        public int id_predio { get; set; }
-
-
-        [Display(Name = "Prédio")]
-        public virtual Predio id_predioNavigation { get; set; }
-        public virtual ICollection<Inspecao> Inspecao { get; set; }
+        public virtual Predio id_predioNavigation { get; private set; }
+        public virtual ICollection<Inspecao> Inspecao { get; private set; }
     }
 }

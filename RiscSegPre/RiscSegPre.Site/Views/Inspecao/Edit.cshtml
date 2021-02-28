@@ -1,4 +1,4 @@
-﻿@model RiscSegPre.Domain.Entities.Inspecao
+﻿@model RiscSegPre.Application.Models.InspecaoModel
 
 @{
     ViewData["Title"] = "Inspeção";
@@ -90,7 +90,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-8">
                         <label asp-for="id_predio" class="control-label"></label>
-                        <select asp-for="id_predio" asp-items="@ViewBag.ItensPredios" class="form-control">
+                        <select asp-for="id_predio" asp-items="@ViewData["ItensPredios"] as SelectList" class="form-control">
                             <option value="">Selecione...</option>
                         </select>
                         <span asp-validation-for="id_predio" class="text-danger"></span>

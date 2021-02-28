@@ -1,10 +1,10 @@
-﻿@model RiscSegPre.Domain.Entities.BatalhaoPoliciaMilitar
+﻿@model RiscSegPre.Application.Models.BatalhaoPoliciaMilitarModel
 
 @{
     ViewData["Title"] = "Batalhao Policia Militar";
 }
 
-<section> 
+<section>
     <div class="spacer">
         <h6>Cadastrar: <b>@ViewData["Title"]</b></h6>
         <hr class="my-2">
@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="form-group">
                     <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
-                    <a href='@Url.Action("Index", "BatalhaoPoliciaMilitar")' class="btn btn-sm btn-primary">Voltar</a>
+                    <a asp-action="Index" asp-controller="BatalhaoPoliciaMilitar" class="btn btn-sm btn-primary">Voltar</a>
                 </div>
             </div>
         </div>

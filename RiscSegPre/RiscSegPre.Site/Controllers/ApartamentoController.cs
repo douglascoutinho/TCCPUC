@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using RiscSegPre.Domain.Entities;
-using RiscSegPre.Domain.IRepositories;
+using RiscSegPre.Application.Contract;
+using RiscSegPre.Application.Models;
 using RiscSegPre.Site.Extentions.Menssagem;
 using System.Collections.Generic;
 
@@ -12,18 +11,27 @@ namespace RiscSegPre.Site.Controllers
     [Authorize]
     public class ApartamentoController : Controller
     {
-        private readonly IPredioRepository predioRepository;
-        private readonly IApartamentoRepository apartamentoRepository;
+        private readonly IApartamentoService apartamentoService;
+        private readonly IPredioService predioService;
+        private readonly IInspecaoService inspecaoService;
 
-        public ApartamentoController(IPredioRepository predioRepository, IApartamentoRepository apartamentoRepository)
+        public ApartamentoController(IApartamentoService apartamentoService, IPredioService predioService, IInspecaoService inspecaoService)
         {
-            this.predioRepository = predioRepository;
-            this.apartamentoRepository = apartamentoRepository;
+            this.apartamentoService = apartamentoService;
+            this.predioService = predioService;
+            this.inspecaoService = inspecaoService;
         }
 
         public ActionResult Index()
         {
-            return View(apartamentoRepository.GetAll().Include(x => x.id_predioNavigation));
+            try
+            {
+                return View(apartamentoService.ConsultarTodos());
+            }
+            catch (System.Exception e)
+            {
+                throw;
+            }
         }
 
         public ActionResult Create()
@@ -34,11 +42,11 @@ namespace RiscSegPre.Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Apartamento apartamento)
+        public ActionResult Create(ApartamentoModel model)
         {
             try
             {
-                apartamentoRepository.Insert(apartamento);
+                apartamentoService.Cadastrar(model);
                 this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                 return RedirectToAction(nameof(Index));
             }
@@ -50,19 +58,19 @@ namespace RiscSegPre.Site.Controllers
 
         public ActionResult Edit(int id)
         {
-            var apartamento =  apartamentoRepository.GetById(id);
+            var apartamento = apartamentoService.ConsultarPorId(id);
 
             ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(apartamento.id_predio);
-            return View(apartamentoRepository.GetById(id));
+            return View(apartamentoService.ConsultarPorId(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Apartamento apartamento)
+        public ActionResult Edit(ApartamentoModel model)
         {
             try
             {
-                apartamentoRepository.Update(apartamento);
+                apartamentoService.Atualizar(model);
                 this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                 return RedirectToAction(nameof(Index));
             }
@@ -77,28 +85,24 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var objeto = apartamentoRepository.GetById(id);
-                var result = string.Empty;
+                var existe = inspecaoService.ExisteApartamento(id);
 
-                if (objeto != null)
-                    apartamentoRepository.Delete(objeto);
+                if (!existe)
+                    return Json(new { data = apartamentoService.Excluir(id) });
 
-                else
-                    result = "Error";
-
-                return Json(new { data = result });
+                else return Json(new { data = "1" });
             }
             catch
             {
-                return View();
+                return Json(new { data = "Error" });
             }
         }
 
         private IEnumerable<SelectListItem> CarregarPredios(int id = 0)
         {
             if (id > 0)
-                return new SelectList(predioRepository.GetDictionary(), "Key", "Value", id);
-            return new SelectList(predioRepository.GetDictionary(), "Key", "Value");
+                return predioService.CarregarPredios(id);
+            return predioService.CarregarPredios();
         }
     }
 }

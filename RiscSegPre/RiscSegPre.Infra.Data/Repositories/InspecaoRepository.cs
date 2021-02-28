@@ -2,6 +2,7 @@
 using RiscSegPre.Domain.Entities;
 using RiscSegPre.Domain.IRepositories;
 using RiscSegPre.Infra.Data.Context;
+using System.Linq;
 
 namespace RiscSegPre.Infra.Data.Repositories
 {
@@ -31,6 +32,28 @@ namespace RiscSegPre.Infra.Data.Repositories
             context.NotaMeioProtecaoTecnico.Update(obj.id_notaMeioProtecaoTecnicoNavigation);
 
             context.SaveChanges();
+        }
+
+        public override Inspecao GetById(int id)
+        {
+            return context.Inspecao
+                .AsNoTracking()
+                .Include(x => x.id_notaAvaliacaoProcedimentoNavigation)
+                .Include(x => x.id_notaMeioProtecaoFisicoNavigation)
+                .Include(x => x.id_notaMeioProtecaoTecnicoNavigation)
+                .Include(x => x.id_notaMeioProtecaoHumanoNavigation)
+                .Where(x => x.id_inspecao == id)
+                .FirstOrDefault();
+        }
+
+        public override IQueryable<Inspecao> GetAll()
+        {
+            return context.Inspecao
+            .AsNoTracking()
+            .Include(x => x.id_predioNavigation)
+            .Include(x => x.id_apartamentoNavigation)
+            .Include(x => x.id_bairroNavigation)
+            .Include(x => x.id_clienteNavigation);
         }
     }
 }

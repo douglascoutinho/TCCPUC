@@ -1,4 +1,4 @@
-﻿@model RiscSegPre.Domain.Entities.Bairro
+﻿@model RiscSegPre.Application.Models.BairroModel
 
 @{
     ViewData["Title"] = "Bairro";
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="form-group">
                     <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
-                    <a href='@Url.Action("Index", "Bairro")' class="btn btn-sm btn-primary">Voltar</a>
+                    <a asp-action="Index" asp-controller="Bairro" class="btn btn-sm btn-primary">Voltar</a>
                 </div>
             </div>
         </div>

@@ -9,29 +9,26 @@
             var meidiaProtecaoHumano = inspecao.id_notaMeioProtecaoHumanoNavigation.CalcularMedia(inspecao);
             var meidiaProtecaoTecnico = inspecao.id_notaMeioProtecaoTecnicoNavigation.CalcularMedia(inspecao);
 
-            inspecao.nota = ((meidiaAvaliacao + meidiaProtecaoFisico + meidiaProtecaoHumano + meidiaProtecaoTecnico)) / 4;
+            var media_geral = ((meidiaAvaliacao + meidiaProtecaoFisico + meidiaProtecaoHumano + meidiaProtecaoTecnico)) / 4;
 
-            inspecao.motivoReprovacao = string.Empty;
+            inspecao = inspecao.InserirMediaGeral(inspecao, media_geral);
+
+            var motivos = string.Empty;
 
             if (meidiaAvaliacao < 60)
-                inspecao.motivoReprovacao = "Avalição de Procedimentos";
+                motivos = "Avalição de Procedimentos";
 
             if (meidiaProtecaoFisico < 60)
-                inspecao.motivoReprovacao += inspecao.motivoReprovacao.Length > 0 ? ", Meio Proteção Fisico, " : "Meio Proteção Fisico";
+                motivos += motivos.Length > 0 ? ", Meio Proteção Fisico, " : "Meio Proteção Fisico";
 
             if (meidiaProtecaoHumano < 60)
-                inspecao.motivoReprovacao += inspecao.motivoReprovacao.Length > 0 ? " Meio Proteção Humano, " : "Meio Proteção Humano";
+                motivos += motivos.Length > 0 ? " Meio Proteção Humano, " : "Meio Proteção Humano";
 
             if (meidiaProtecaoTecnico < 60)
-                inspecao.motivoReprovacao += inspecao.motivoReprovacao.Length > 0 ? " Meio Proteção Tecnico, " : "Meio Proteção Técnico";
+                motivos += motivos.Length > 0 ? " Meio Proteção Tecnico, " : "Meio Proteção Técnico";
 
-            if (inspecao.motivoReprovacao.Length > 0)
-                inspecao.situacao = "Reprovada";
-            else
-                inspecao.situacao = "Aprovada";
 
-            return inspecao;
+            return inspecao.InserirSituacao(inspecao, motivos);
         }
     }
 }
-

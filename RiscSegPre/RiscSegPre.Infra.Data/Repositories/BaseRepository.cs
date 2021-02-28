@@ -13,7 +13,7 @@ namespace RiscSegPre.Infra.Data.Repositories
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity>
          where TEntity : class
     {
-        private readonly DataContext dataContext;
+        private readonly DataContext dataContext;   
 
         public BaseRepository(DataContext dataContext)
         {
@@ -64,8 +64,6 @@ namespace RiscSegPre.Infra.Data.Repositories
         {
             return dataContext.Set<TEntity>().AsNoTracking().Where(where).ToList();
         }
-
-       
 
         public virtual TEntity Get(Func<TEntity, bool> where)
         {

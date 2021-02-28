@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace RiscSegPre.Domain.Entities
 {
@@ -10,13 +9,16 @@ namespace RiscSegPre.Domain.Entities
             Inspecao = new HashSet<Inspecao>();
         }
 
-        [Display(Name = "Código")]
-        public int id_cliente { get; set; }
+        public Cliente(int id_cliente, string nm_cliente)
+        {
+            this.id_cliente = id_cliente;
+            this.nm_cliente = nm_cliente;
 
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        [Display(Name = "Nome")]
-        public string nm_cliente { get; set; }
+        }
 
-        public virtual ICollection<Inspecao> Inspecao { get; set; }
+        public int id_cliente { get; private set; }
+        public string nm_cliente { get; private set; }
+
+        public virtual ICollection<Inspecao> Inspecao { get; private set; }
     }
 }

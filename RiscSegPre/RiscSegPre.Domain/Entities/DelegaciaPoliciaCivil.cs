@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace RiscSegPre.Domain.Entities
 {
     public partial class DelegaciaPoliciaCivil : Endereco
     {
-        public DelegaciaPoliciaCivil()
+        protected DelegaciaPoliciaCivil()
         {
             Bairro = new HashSet<Bairro>();
         }
 
-        [Key]
-        public int id_delegacia { get; set; }
+        public DelegaciaPoliciaCivil(int id_delegacia, string ds_delegacia)
+        {
+            this.id_delegacia = id_delegacia;
+            this.ds_delegacia = ds_delegacia;
+        }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        [Display(Name = "Nome")]
-        public string ds_delegacia { get; set; }
-
-        public virtual ICollection<Bairro> Bairro { get; set; }
+        public int id_delegacia { get; private set; }
+        public string ds_delegacia { get; private set; }
+        public virtual ICollection<Bairro> Bairro { get; private set; }
     }
 }

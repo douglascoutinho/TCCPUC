@@ -2,9 +2,9 @@ USE [TCC_RISCO]
 GO
 SET IDENTITY_INSERT [dbo].[DelegaciaPoliciaCivil] ON 
 GO
-INSERT [dbo].[DelegaciaPoliciaCivil] ([id_delegacia], [ds_delegacia], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (1, N'14ª Delegacia', N'23075-248', N' Rua Bangu', N'132', N'Próximo a estação', N'Rio de Janeiro', N'Bangu', N'RJ')
+INSERT [dbo].[DelegaciaPoliciaCivil] ([id_delegacia], [ds_delegacia], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (1, N'14ª Delegacia', N'23075-248', N' Rua Bangu', N'132', N'Próximo a Estação', N'Rio de Janeiro', N'Bangu', N'RJ')
 GO
-INSERT [dbo].[DelegaciaPoliciaCivil] ([id_delegacia], [ds_delegacia], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (2, N'5ª Delegacia', N'12444-646', N'Rua do Governo', N'12', N'Próximo ao shopping Realengo', N'Rio de Janeiro', N'Realengo', N'RJ')
+INSERT [dbo].[DelegaciaPoliciaCivil] ([id_delegacia], [ds_delegacia], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (2, N'5ª Delegacia', N'12444-646', N'Rua do Governo', N'12', N'Próximo ao Shopping Realengo', N'Rio de Janeiro', N'Realengo', N'RJ')
 GO
 SET IDENTITY_INSERT [dbo].[DelegaciaPoliciaCivil] OFF
 GO
@@ -13,6 +13,8 @@ GO
 INSERT [dbo].[BatalhaoPoliciaMilitar] ([id_batalhao], [ds_delegacia], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (1, N'14º Batalhão', N'23075-245', N'Rua Barão', N'125', N'Próximo ao shopping Bangu', N'Rio de Janeiro', N'Bangu', N'RJ')
 GO
 INSERT [dbo].[BatalhaoPoliciaMilitar] ([id_batalhao], [ds_delegacia], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (2, N'5º Batalhão', N'21546-444', N'Rua Realengo', N'745', N'Próximo ao shopping Realengo', N'Rio de Janeiro', N'Ralengo', N'RJ')
+GO
+INSERT [dbo].[BatalhaoPoliciaMilitar] ([id_batalhao], [ds_delegacia], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (4, N'1º Batalhão Barra da Tijuca', N'21545-454', N'Av. das Américas', N'451', N'Próximo ao Barra Shopping ', N'Rio de Janeiro', N'Barra da Tijuca', N'RJ')
 GO
 SET IDENTITY_INSERT [dbo].[BatalhaoPoliciaMilitar] OFF
 GO
@@ -46,6 +48,8 @@ INSERT [dbo].[Cliente] ([id_cliente], [nm_cliente]) VALUES (4, N'Victor Emeka')
 GO
 INSERT [dbo].[Cliente] ([id_cliente], [nm_cliente]) VALUES (5, N'Daísa Munhoz')
 GO
+INSERT [dbo].[Cliente] ([id_cliente], [nm_cliente]) VALUES (6, N'Amanda Somerville')
+GO
 SET IDENTITY_INSERT [dbo].[Cliente] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Predio] ON 
@@ -54,15 +58,17 @@ INSERT [dbo].[Predio] ([id_predio], [nm_predio], [cep], [logradouro], [numero], 
 GO
 INSERT [dbo].[Predio] ([id_predio], [nm_predio], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (2, N'Condomínio Realengo', N'21831-360', N'Rua Realengo', N'123', N'Próximo ao Shopping de Realengo', N'Rio de Janeiro', N'Realengo', N'RJ')
 GO
+INSERT [dbo].[Predio] ([id_predio], [nm_predio], [cep], [logradouro], [numero], [complemento], [cidade], [bairro], [estado]) VALUES (4, N'Condomínio Barra ', N'43434-334', N'Av. das Americas', N'321', N'Próximo ao Barra Shopping', N'Rio de Janeiro', N'Barra da Tijuca', N'RJ')
+GO
 SET IDENTITY_INSERT [dbo].[Predio] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Apartamento] ON 
 GO
-INSERT [dbo].[Apartamento] ([id_apartamento], [nm_apartamento], [numero], [id_predio]) VALUES (1, N'Bloco 10', N'AP301', 1)
+INSERT [dbo].[Apartamento] ([id_apartamento], [nm_apartamento], [numero], [id_predio]) VALUES (1, N' CB Bloco 11', N'AP301', 1)
 GO
-INSERT [dbo].[Apartamento] ([id_apartamento], [nm_apartamento], [numero], [id_predio]) VALUES (2, N'Bloco 5', N'AP350', 2)
+INSERT [dbo].[Apartamento] ([id_apartamento], [nm_apartamento], [numero], [id_predio]) VALUES (2, N'CR Bloco 5', N'AP 350', 2)
 GO
-INSERT [dbo].[Apartamento] ([id_apartamento], [nm_apartamento], [numero], [id_predio]) VALUES (3, N'Bloco 5', N'AP351', 2)
+INSERT [dbo].[Apartamento] ([id_apartamento], [nm_apartamento], [numero], [id_predio]) VALUES (5, N'CB - Bloco 01', N'AP 302', 1)
 GO
 SET IDENTITY_INSERT [dbo].[Apartamento] OFF
 GO

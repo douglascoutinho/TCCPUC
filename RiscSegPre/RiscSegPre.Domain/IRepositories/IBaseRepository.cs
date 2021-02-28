@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RiscSegPre.Domain.IRepositories
 {
-    public interface IBaseRepository<TEntity>
+    public interface IBaseRepository<TEntity> : IDisposable
         where TEntity : class
     {
         void Insert(TEntity obj);

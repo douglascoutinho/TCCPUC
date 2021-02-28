@@ -2,43 +2,43 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using RiscSegPre.Domain.Entities;
-using RiscSegPre.Domain.IRepositories;
+using RiscSegPre.Application.Contract;
+using RiscSegPre.Application.Models;
 using RiscSegPre.Site.Extentions.Menssagem;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RiscSegPre.Site.Controllers
 {
     [Authorize]
     public class InspecaoController : Controller
     {
-        private readonly IInspecaoRepository inspecaoRepository;
-        private readonly IPredioRepository predioRepository;
-        private readonly IApartamentoRepository apartamentoRepository;
-        private readonly IBairroRepository bairroRepository;
-        private readonly IClienteRepository clienteRepository;
+        private readonly IInspecaoService inspecaoService;
+        private readonly IPredioService predioService;
+        private readonly IApartamentoService apartamentoService;
+        private readonly IBairroService bairroService;
+        private readonly IClienteService clienteService;
 
-        public InspecaoController(IInspecaoRepository inspecaoRepository, IPredioRepository predioRepository, IApartamentoRepository apartamentoRepository, IBairroRepository bairroRepository, IClienteRepository clienteRepository)
+        public InspecaoController(IInspecaoService inspecaoService, IPredioService predioService, IApartamentoService apartamentoService, IBairroService bairroService, IClienteService clienteService)
         {
-            this.inspecaoRepository = inspecaoRepository;
-            this.predioRepository = predioRepository;
-            this.apartamentoRepository = apartamentoRepository;
-            this.bairroRepository = bairroRepository;
-            this.clienteRepository = clienteRepository;
+            this.inspecaoService = inspecaoService;
+            this.predioService = predioService;
+            this.apartamentoService = apartamentoService;
+            this.bairroService = bairroService;
+            this.clienteService = clienteService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            var inspecoes = inspecaoRepository.GetAll()
-                .Include(x => x.id_predioNavigation)
-                .Include(x => x.id_apartamentoNavigation)
-                .Include(x => x.id_bairroNavigation)
-                .Include(x => x.id_clienteNavigation);
+            try
+            {
+                return View(inspecaoService.ConsultarTodos());
+            }
+            catch (Exception e)
+            {
 
-            return View(inspecoes);
+                return View(e.Message);
+            }
         }
 
         public ActionResult Create()
@@ -53,7 +53,7 @@ namespace RiscSegPre.Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Inspecao inspecao, IFormFile fotoApartamento, IFormFile fotoPredio)
+        public ActionResult Create(InspecaoModel inspecao, IFormFile fotoApartamento, IFormFile fotoPredio)
         {
             try
             {
@@ -71,29 +71,28 @@ namespace RiscSegPre.Site.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    inspecao = CalcularNota.CalcularRisco(inspecao);
+                    inspecao = inspecaoService.GerarNota(inspecao);
 
                     inspecao.fotoApartamento = "FA" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM", "").Replace("AM", "") + "." + fotoApartamento.ContentType.Split("/")[1];
                     inspecao.fotoPredio = "FP" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM", "").Replace("AM", "") + "." + fotoPredio.ContentType.Split("/")[1];
 
-                    inspecaoRepository.Insert(inspecao);
+                    inspecaoService.Cadastrar(inspecao);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
-                else
-                 {
-                    ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
-                    ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_select == 0 ? inspecao.id_apartamento : inspecao.id_select);
-                    ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
-                    ViewBag.ItensClientes = (IEnumerable<SelectListItem>)CarregarClientes(inspecao.id_cliente);
 
-                    inspecao.fotoApartamento = fotoApartamento == null ? string.Empty : fotoApartamento.FileName;
-                    inspecao.fotoPredio = fotoPredio == null ? string.Empty : fotoPredio.FileName;
+                ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
+                ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_select == 0 ? inspecao.id_apartamento : inspecao.id_select);
+                ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
+                ViewBag.ItensClientes = (IEnumerable<SelectListItem>)CarregarClientes(inspecao.id_cliente);
 
-                    this.ShowMessage("Existe campo(s) que devem ser preenchidos!", ToastrDialogType.Info);
+                inspecao.fotoApartamento = fotoApartamento == null ? string.Empty : fotoApartamento.FileName;
+                inspecao.fotoPredio = fotoPredio == null ? string.Empty : fotoPredio.FileName;
 
-                    return View(inspecao);
-                }
+                this.ShowMessage("Existe campo(s) que devem ser preenchidos!", ToastrDialogType.Info);
+
+                return View(inspecao);
+
             }
             catch (Exception e)
             {
@@ -105,14 +104,7 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var inspecao = inspecaoRepository.GetAll()
-                                             .AsNoTracking()
-                                             .Include(x => x.id_notaAvaliacaoProcedimentoNavigation)
-                                             .Include(x => x.id_notaMeioProtecaoFisicoNavigation)
-                                             .Include(x => x.id_notaMeioProtecaoTecnicoNavigation)
-                                             .Include(x => x.id_notaMeioProtecaoHumanoNavigation)
-                                             .Where(x => x.id_inspecao == id)
-                                             .FirstOrDefault();
+                var inspecao = inspecaoService.ConsultarPorId(id);
 
                 ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
                 ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_apartamento);
@@ -122,43 +114,39 @@ namespace RiscSegPre.Site.Controllers
             }
             catch (Exception e)
             {
-
                 throw;
             }
-            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Inspecao inspecao, IFormFile fotoApartamento, IFormFile fotoPredio)
+        public ActionResult Edit(InspecaoModel inspecao, IFormFile fotoApartamento, IFormFile fotoPredio)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var _inspecao = inspecaoRepository.GetAll()
-                                                      .AsNoTracking()
-                                                      .Where(x => x.id_inspecao == inspecao.id_inspecao)
-                                                      .FirstOrDefault();
+                    var _inspecao = inspecaoService.ConsultarPorId(inspecao.id_inspecao);
 
                     if (fotoApartamento == null)
                         inspecao.fotoApartamento = _inspecao.fotoApartamento;
 
-                    else inspecao.fotoApartamento = inspecao.fotoApartamento = "FA" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM","").Replace("AM","") + "." + fotoApartamento.ContentType.Split("/")[1];
+                    else inspecao.fotoApartamento = inspecao.fotoApartamento = "FA" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM", "").Replace("AM", "") + "." + fotoApartamento.ContentType.Split("/")[1];
 
                     if (fotoPredio == null)
                         inspecao.fotoPredio = _inspecao.fotoPredio;
 
                     else inspecao.fotoPredio = inspecao.fotoPredio = "FP" + DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "").Replace("PM", "").Replace("AM", "") + "." + fotoPredio.ContentType.Split("/")[1];
-                    
-                    inspecao = CalcularNota.CalcularRisco(inspecao);
-                    inspecaoRepository.Update(inspecao);
+
+                    inspecao = inspecaoService.GerarNota(inspecao);
+                    inspecaoService.Atualizar(inspecao);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
+
+                    ViewData["ItensPredios"] = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
                     ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_apartamento);
                     ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
                     ViewBag.ItensClientes = (IEnumerable<SelectListItem>)CarregarClientes(inspecao.id_cliente);
@@ -171,7 +159,7 @@ namespace RiscSegPre.Site.Controllers
                     return View(inspecao);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }
@@ -182,27 +170,23 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var objeto = inspecaoRepository.GetById(id);
-                var result = string.Empty;
+                var existe = inspecaoService.ConsultarPorId(id);
 
-                if (objeto != null)
-                    inspecaoRepository.Delete(objeto);
+                if (existe != null)
+                    return Json(new { data = inspecaoService.Excluir(id) });
 
-                else
-                    result = "Error";
-
-                return Json(new { data = result });
+                else return Json(new { data = "1" });
             }
             catch
             {
-                return View();
+                return Json(new { data = "Error" });
             }
         }
 
         [HttpGet]
         public JsonResult GetSelectApartamento(int id)
         {
-            var itens = apartamentoRepository.GetAll(x => x.id_predio == id);
+            var itens = apartamentoService.ConsultarPorPredio(id);
             var Lista = new List<SelectListItem>();
             foreach (var Linha in itens)
             {
@@ -219,29 +203,29 @@ namespace RiscSegPre.Site.Controllers
         private IEnumerable<SelectListItem> CarregarPredios(int id = 0)
         {
             if (id > 0)
-                return new SelectList(predioRepository.GetDictionary(), "Key", "Value", id);
-            return new SelectList(predioRepository.GetDictionary(), "Key", "Value");
+                return predioService.CarregarPredios(id);
+            return predioService.CarregarPredios();
         }
 
         private IEnumerable<SelectListItem> CarregarApartamentos(int id = 0)
         {
             if (id > 0)
-                return new SelectList(apartamentoRepository.GetDictionary(), "Key", "Value", id);
-            return new SelectList(apartamentoRepository.GetDictionary(), "Key", "Value");
+                return apartamentoService.CarregarApartamentos(id);
+            return apartamentoService.CarregarApartamentos();
         }
 
         private IEnumerable<SelectListItem> CarregarBairros(int id = 0)
         {
             if (id > 0)
-                return new SelectList(bairroRepository.GetDictionary(), "Key", "Value", id);
-            return new SelectList(bairroRepository.GetDictionary(), "Key", "Value");
+                return bairroService.CarregarBairros(id);
+            return bairroService.CarregarBairros();
         }
 
         private IEnumerable<SelectListItem> CarregarClientes(int id = 0)
         {
             if (id > 0)
-                return new SelectList(clienteRepository.GetDictionary(), "Key", "Value", id);
-            return new SelectList(clienteRepository.GetDictionary(), "Key", "Value");
+                return clienteService.CarregarClientes(id);
+            return clienteService.CarregarClientes();
         }
     }
 }

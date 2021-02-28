@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
@@ -51,6 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RiscSegPre.Application\RiscSegPre.Application.csproj" />
     <ProjectReference Include="..\RiscSegPre.Domain\RiscSegPre.Domain.csproj" />
     <ProjectReference Include="..\RiscSegPre.Infra.Data\RiscSegPre.Infra.Data.csproj" />
   </ItemGroup>

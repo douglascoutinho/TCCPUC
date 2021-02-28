@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RiscSegPre.Domain.Entities.Apartamento>
+﻿@model IEnumerable<RiscSegPre.Application.Models.ApartamentoModel>
 
 @{
     ViewData["Title"] = "Apartamento";
@@ -70,6 +70,9 @@
                     var linha = $("#" + id);
                     $(linha).parents('tr').remove();
                     toastr.success("Apartamento excluido com sucesso.", {});
+                }
+                else if (result.data.length == 1) {
+                    toastr.warning("Existe inspeção vinculada ao apartamento selecionado.", {});
                 }
             }});
         });

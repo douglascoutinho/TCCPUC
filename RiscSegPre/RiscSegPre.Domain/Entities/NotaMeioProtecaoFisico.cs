@@ -1,53 +1,36 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace RiscSegPre.Domain.Entities
 {
     public partial class NotaMeioProtecaoFisico
     {
-        public NotaMeioProtecaoFisico()
+        protected NotaMeioProtecaoFisico()
         {
             Inspecao = new HashSet<Inspecao>();
         }
 
-        public int id_notaMeioProtecaoFisico { get; set; }
+        public NotaMeioProtecaoFisico(int id_notaMeioProtecaoFisico, int sistemaDeteccaoIntruso, int recursoSegurancaPerimetroExterno, int meiosDesaceleracaoFrenagemVeiculo, int controleAcessoVeiculo, int controleAcessoPedestre, int meioProtecaoEdificio, int armarioSeguranca)
+        {
+            this.id_notaMeioProtecaoFisico = id_notaMeioProtecaoFisico;
+            this.sistemaDeteccaoIntruso = sistemaDeteccaoIntruso;
+            this.recursoSegurancaPerimetroExterno = recursoSegurancaPerimetroExterno;
+            this.meiosDesaceleracaoFrenagemVeiculo = meiosDesaceleracaoFrenagemVeiculo;
+            this.controleAcessoVeiculo = controleAcessoVeiculo;
+            this.controleAcessoPedestre = controleAcessoPedestre;
+            this.meioProtecaoEdificio = meioProtecaoEdificio;
+            this.armarioSeguranca = armarioSeguranca;
+        }
 
-        [Display(Name = "Detecção de Intruso")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int sistemaDeteccaoIntruso { get; set; }
+        public int id_notaMeioProtecaoFisico { get; private set; }
+        public int sistemaDeteccaoIntruso { get; private set; }
+        public int recursoSegurancaPerimetroExterno { get; private set; }
+        public int meiosDesaceleracaoFrenagemVeiculo { get; private set; }
+        public int controleAcessoVeiculo { get; private set; }
+        public int controleAcessoPedestre { get; private set; }
+        public int meioProtecaoEdificio { get; private set; }
+        public int armarioSeguranca { get; private set; }
 
-        [Display(Name = "Perímetro Externo")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int recursoSegurancaPerimetroExterno { get; set; }
-
-        [Display(Name = "Meio Desaceleração Veículo")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int meiosDesaceleracaoFrenagemVeiculo { get; set; }
-
-        [Display(Name = "Controle Acesso Veículo")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int controleAcessoVeiculo { get; set; }
-
-        [Display(Name = "Controle Acesso Pedestre")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int controleAcessoPedestre { get; set; }
-
-        [Display(Name = "Proteção Edifício")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int meioProtecaoEdificio { get; set; }
-
-        [Display(Name = "Armario Segurança")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int armarioSeguranca { get; set; }
-
-        public virtual ICollection<Inspecao> Inspecao { get; set; }
+        public virtual ICollection<Inspecao> Inspecao { get; private set; }
 
         public decimal CalcularMedia(Inspecao inspecao)
         {

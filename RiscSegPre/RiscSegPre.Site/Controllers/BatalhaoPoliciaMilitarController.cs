@@ -1,27 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RiscSegPre.Domain.Entities;
-using RiscSegPre.Domain.IRepositories;
+using RiscSegPre.Application.Contract;
+using RiscSegPre.Application.Models;
 using RiscSegPre.Site.Extentions.Menssagem;
-using System.Linq;
+using System;
 
 namespace RiscSegPre.Site.Controllers
 {
     [Authorize]
     public class BatalhaoPoliciaMilitarController : Controller
     {
-        private readonly IBatalhaoPoliciaMilitarRepository batalhaoPoliciaMilitarRepository;
-        private readonly IBairroRepository bairroRepository;
+        private readonly IBatalhaoPoliciaMilitarService batalhaoPoliciaMilitarService;
+        private readonly IBairroService bairroService;
 
-        public BatalhaoPoliciaMilitarController(IBatalhaoPoliciaMilitarRepository batalhaoPoliciaMilitarRepository, IBairroRepository bairroRepository)
+        public BatalhaoPoliciaMilitarController(IBatalhaoPoliciaMilitarService batalhaoPoliciaMilitarService, IBairroService bairroService)
         {
-            this.batalhaoPoliciaMilitarRepository = batalhaoPoliciaMilitarRepository;
-            this.bairroRepository = bairroRepository;
+            this.batalhaoPoliciaMilitarService = batalhaoPoliciaMilitarService;
+            this.bairroService = bairroService;
         }
 
         public ActionResult Index()
         {
-            return View(batalhaoPoliciaMilitarRepository.GetAll());
+            return View(batalhaoPoliciaMilitarService.ConsultarTodos());
         }
 
         public ActionResult Create()
@@ -31,39 +31,39 @@ namespace RiscSegPre.Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BatalhaoPoliciaMilitar batalhaoPoliciaMilitar)
+        public ActionResult Create(BatalhaoPoliciaMilitarModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    batalhaoPoliciaMilitarRepository.Insert(batalhaoPoliciaMilitar);
+                    batalhaoPoliciaMilitarService.Cadastrar(model);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
 
-                return View();
+                return View(model);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                return RedirectToAction("Error");
             }
         }
 
         public ActionResult Edit(int id)
         {
-            return View(batalhaoPoliciaMilitarRepository.GetById(id));
+            return View(batalhaoPoliciaMilitarService.ConsultarPorId(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(BatalhaoPoliciaMilitar batalhaoPoliciaMilitar)
+        public ActionResult Edit(BatalhaoPoliciaMilitarModel batalhaoPoliciaMilitar)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    batalhaoPoliciaMilitarRepository.Update(batalhaoPoliciaMilitar);
+                    batalhaoPoliciaMilitarService.Atualizar(batalhaoPoliciaMilitar);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
@@ -81,21 +81,13 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var objetoVinculado = bairroRepository.GetAll(x => x.id_batalhao == id).Any();
+                var existe = bairroService.ExisteBatalhao(id);
 
-                var objeto = batalhaoPoliciaMilitarRepository.GetById(id);
-                var result = string.Empty;
+                if (!existe)
+                    return Json(new { data = batalhaoPoliciaMilitarService.Excluir(id) });
 
-                if (objetoVinculado)
-                    result = "1";
+                else return Json(new { data = "1" });
 
-                else if (objeto != null)
-                    batalhaoPoliciaMilitarRepository.Delete(objeto);
-
-                else
-                    result = "Error";
-
-                return Json(new { data = result });
             }
             catch
             {

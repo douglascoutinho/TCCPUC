@@ -1,4 +1,4 @@
-﻿@model RiscSegPre.Domain.Entities.Cliente
+﻿@model RiscSegPre.Application.Models.ClienteModel
 
 @{
     ViewData["Title"] = "Cliente";
@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="form-group">
                     <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
-                    <a href='@Url.Action("Index", "Cliente")' class="btn btn-sm btn-primary">Voltar</a>
+                    <a asp-action="Index" asp-controller="Cliente" class="btn btn-sm btn-primary">Voltar</a>
                 </div>
             </div>
         </div>

@@ -1,29 +1,33 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RiscSegPre.Domain.Entities;
-using RiscSegPre.Domain.IRepositories;
+using RiscSegPre.Application.Contract;
+using RiscSegPre.Application.Models;
 using RiscSegPre.Site.Extentions.Menssagem;
-using System.Linq;
 
 namespace RiscSegPre.Site.Controllers
 {
     [Authorize]
     public class PredioController : Controller
     {
+        private readonly IPredioService predioService;
+        private readonly IApartamentoService apartamentoService;
 
-        private readonly IPredioRepository predioRepository;
-        private readonly IApartamentoRepository apartamentoRepository;
-
-        public PredioController(IPredioRepository predioRepository, IApartamentoRepository apartamentoRepository)
+        public PredioController(IPredioService predioService, IApartamentoService apartamentoService)
         {
-            this.predioRepository = predioRepository;
-            this.apartamentoRepository = apartamentoRepository;
+            this.predioService = predioService;
+            this.apartamentoService = apartamentoService;
         }
 
         public ActionResult Index()
         {
-            var predios = predioRepository.GetAll();
-            return View(predios);
+            try
+            {
+                return View(predioService.ConsultarTodos());
+            }
+            catch (System.Exception e)
+            {
+                throw;
+            }
         }
 
         public ActionResult Create()
@@ -33,18 +37,18 @@ namespace RiscSegPre.Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Predio predio)
+        public ActionResult Create(PredioModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    predioRepository.Insert(predio);
+                    predioService.Cadastrar(model);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
 
-                return View();
+                return View(model);
             }
             catch
             {
@@ -54,24 +58,30 @@ namespace RiscSegPre.Site.Controllers
 
         public ActionResult Edit(int id)
         {
-            var predio = predioRepository.GetById(id);
-            return View(predio);
+            try
+            {
+                return View(predioService.ConsultarPorId(id));
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Predio predio)
+        public ActionResult Edit(PredioModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    predioRepository.Update(predio);
+                    predioService.Atualizar(model);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
 
-                return View();
+                return View(model);
             }
             catch
             {
@@ -84,21 +94,12 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-               var objetoVinculado =  apartamentoRepository.GetAll(x => x.id_predio == id).Any();
+                var existe = apartamentoService.ExisteApartamento(id);
 
-                var objeto = predioRepository.GetById(id);
-                var result = string.Empty;
+                if (!existe)
+                    return Json(new { data = predioService.Excluir(id) });
 
-                if (objetoVinculado)
-                    result = "1";
-
-                else if (objeto != null)
-                    predioRepository.Delete(objeto);
-
-                else
-                    result = "Error";
-
-                return Json(new { data = result });
+                else return Json(new { data = "1" });
             }
             catch
             {

@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.2 - CrossCutting", "3.2 -
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Test", "5 - Test", "{714B081E-6D19-43A3-8C4C-01C79C2188E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiscSegPre.Test", "RiscSegPre.Test\RiscSegPre.Test\RiscSegPre.Test.csproj", "{A9C8F38D-A39A-4671-A9AC-F57A9E6FA5DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RiscSegPre.Test", "RiscSegPre.Test\RiscSegPre.Test\RiscSegPre.Test.csproj", "{A9C8F38D-A39A-4671-A9AC-F57A9E6FA5DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

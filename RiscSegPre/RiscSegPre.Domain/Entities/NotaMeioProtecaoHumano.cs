@@ -1,43 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
     public partial class NotaMeioProtecaoHumano
     {
-        public NotaMeioProtecaoHumano()
+        protected NotaMeioProtecaoHumano()
         {
             Inspecao = new HashSet<Inspecao>();
         }
 
-        public int id_notaMeioProtecaoHumano { get; set; }
+        public NotaMeioProtecaoHumano(int id_notaMeioProtecaoHumano, int guardaSeguranca, int gestaoServicoVigilancia, int equipamentoMaterial, int capacidadeOperacional)
+        {
+            this.id_notaMeioProtecaoHumano = id_notaMeioProtecaoHumano;
+            this.guardaSeguranca = guardaSeguranca;
+            this.gestaoServicoVigilancia = gestaoServicoVigilancia;
+            this.equipamentoMaterial = equipamentoMaterial;
+            this.capacidadeOperacional = capacidadeOperacional;
+        }
 
-        //[DataType(DataType.Currency)]
-        //[Column(TypeName = "decimal(18, 2)")]
-        [Display(Name = "Guarda Segurança")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int guardaSeguranca { get; set; }
+        public int id_notaMeioProtecaoHumano { get; private set; }
+        public int guardaSeguranca { get; private set; }
+        public int gestaoServicoVigilancia { get; private set; }
+        public int equipamentoMaterial { get; private set; }
+        public int capacidadeOperacional { get; private set; }
 
-        [Display(Name = "Getão Vigilancia")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int gestaoServicoVigilancia { get; set; }
-
-        
-        [Display(Name = "Equipamento e Material")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int equipamentoMaterial { get; set; }
-
-        [Display(Name = "Capacidade Operacional")]
-        [Range(typeof(int), "0", "100", ErrorMessage = "O campo {0} deve estar entre {1} e {2}.")]
-        [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public int capacidadeOperacional { get; set; }
-
-        public virtual ICollection<Inspecao> Inspecao { get; set; }
+        public virtual ICollection<Inspecao> Inspecao { get; private set; }
 
         public decimal CalcularMedia(Inspecao inspecao)
         {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RiscSegPre.Domain.Entities;
-using RiscSegPre.Domain.IRepositories;
+using RiscSegPre.Application.Contract;
+using RiscSegPre.Application.Models;
 using RiscSegPre.Site.Extentions.Menssagem;
 using System.Linq;
 
@@ -10,19 +10,27 @@ namespace RiscSegPre.Site.Controllers
     [Authorize]
     public class ClienteController : Controller
     {
-        private readonly IClienteRepository clienteRepository;
-        private readonly IInspecaoRepository inspecaoRepository;
+        private readonly IClienteService clienteService;
+        private readonly IInspecaoService inspecaoService;
 
-        public ClienteController(IClienteRepository clienteRepository, IInspecaoRepository inspecaoRepository)
+        public ClienteController(IClienteService clienteService, IInspecaoService inspecaoService)
         {
-            this.clienteRepository = clienteRepository;
-            this.inspecaoRepository = inspecaoRepository;
+            this.clienteService = clienteService;
+            this.inspecaoService = inspecaoService;
         }
 
         public ActionResult Index()
         {
-            var clientes = clienteRepository.GetAll();
-            return View(clientes);
+            try
+            {
+                return View(clienteService.ConsultarTodos());
+
+            }
+            catch (System.Exception e)
+            {
+                throw;
+            }
+
         }
 
         public ActionResult Create()
@@ -32,13 +40,13 @@ namespace RiscSegPre.Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Cliente cliente)
+        public ActionResult Create(ClienteModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    clienteRepository.Insert(cliente);
+                    clienteService.Cadastrar(model);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
@@ -53,24 +61,31 @@ namespace RiscSegPre.Site.Controllers
 
         public ActionResult Edit(int id)
         {
-            var cliente = clienteRepository.GetById(id);
-            return View(cliente);
+            try
+            {
+                return View(clienteService.ConsultarPorId(id));
+
+            }
+            catch (System.Exception e)
+            {
+                throw;
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Cliente cliente)
+        public ActionResult Edit(ClienteModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    clienteRepository.Update(cliente);
+                    clienteService.Atualizar(model);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
 
-                return View();
+                return View(model);
             }
             catch
             {
@@ -83,25 +98,16 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var objetoVinculado = inspecaoRepository.GetAll(x => x.id_cliente == id).Any();
+                var existe = inspecaoService.ExisteCliente(id);
 
-                var objeto = clienteRepository.GetById(id);
-                var result = string.Empty;
+                if (!existe)
+                    return Json(new { data = clienteService.Excluir(id) });
 
-                if (objetoVinculado)
-                    result = "1";
-
-                else if (objeto != null)
-                    clienteRepository.Delete(objeto);
-
-                else
-                    result = "Error";
-
-                return Json(new { data = result });
+                else return Json(new { data = "1" });
             }
             catch
             {
-                return View();
+                return Json(new { data = "Error" });
             }
         }
     }

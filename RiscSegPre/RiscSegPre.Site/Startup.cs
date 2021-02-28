@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RiscSegPre.Application.AutoMapper;
 using RiscSegPre.Infra.Data.Context;
 using RiscSegPre.Site.Data;
 using RiscSegPre.Site.Extentions.Menssagem;
@@ -52,6 +54,21 @@ namespace RiscSegPre.Site
             #region Configuração para Injeção de Dependência
 
             NativeInjectorBootStrapper.RegisterServices(services);
+
+            #endregion
+
+            #region Configuração para o AutoMapper
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                // cfg.AllowNullCollections = true;
+                cfg.AddProfile<DomainEntityToModel>();
+                cfg.AddProfile<ModelToDomainEntity>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             #endregion
 

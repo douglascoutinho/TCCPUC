@@ -4,14 +4,20 @@ namespace RiscSegPre.Domain.Entities
 {
     public partial class Risco
     {
-        public Risco()
+        protected Risco()
         {
             Bairro = new HashSet<Bairro>();
         }
 
-        public int id_risco { get; set; }
-        public string ds_risco { get; set; }
+        public Risco(int id_risco, string ds_risco)
+        {
+            this.id_risco = id_risco;
+            this.ds_risco = ds_risco;
+        }
 
-        public virtual ICollection<Bairro> Bairro { get; set; }
+        public int id_risco { get; private set; }
+        public string ds_risco { get; private set; }
+
+        public virtual ICollection<Bairro> Bairro { get; private set; }
     }
 }
