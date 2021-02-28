@@ -13,7 +13,7 @@ namespace RiscSegPre.Application.Contract
         ApartamentoModel ConsultarPorId(int id);
         List<ApartamentoModel> ConsultarPorPredio(int id_predio);
         string Excluir(int id);
-        bool ExisteApartamento(int id_predio);
+        bool ExistePredio(int id_predio);
         IEnumerable<SelectListItem> CarregarApartamentos(int selecionado);
         IEnumerable<SelectListItem> CarregarApartamentos();
     }

@@ -94,7 +94,7 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var existe = apartamentoService.ExisteApartamento(id);
+                var existe = apartamentoService.ExistePredio(id);
 
                 if (!existe)
                     return Json(new { data = predioService.Excluir(id) });

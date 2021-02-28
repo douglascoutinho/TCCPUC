@@ -61,7 +61,7 @@ namespace RiscSegPre.Application.Services
             return string.Empty;
         }
 
-        public bool ExisteApartamento(int id_predio)
+        public bool ExistePredio(int id_predio)
         {
             return repository.GetAll(x => x.id_predio == id_predio).Any();
         }
