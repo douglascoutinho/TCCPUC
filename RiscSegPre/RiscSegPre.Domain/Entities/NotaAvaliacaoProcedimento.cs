@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using RiscSegPre.Domain.IEntities;
+using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
-    public partial class NotaAvaliacaoProcedimento
+    public partial class NotaAvaliacaoProcedimento : ICalcularMedia
     {
         protected NotaAvaliacaoProcedimento()
         {

@@ -4,10 +4,7 @@ namespace RiscSegPre.Domain.Entities
 {
     public partial class Inspecao
     {
-        protected Inspecao()
-        {
-
-        }
+        protected Inspecao() { }
 
         public Inspecao(int id_inspecao, string distanciaComunidade, string motivoReprovacao, decimal nota, string situacao, string fotoPredio, string fotoApartamento,
                         int id_cliente, int id_predio, int id_apartamento, int id_bairro,

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using RiscSegPre.Domain.IEntities;
+using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
-    public partial class NotaMeioProtecaoHumano
+    public partial class NotaMeioProtecaoHumano : ICalcularMedia
     {
         protected NotaMeioProtecaoHumano()
         {

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using RiscSegPre.Domain.IEntities;
+using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
-    public partial class NotaMeioProtecaoTecnico
+    public partial class NotaMeioProtecaoTecnico : ICalcularMedia
     {
         protected NotaMeioProtecaoTecnico()
         {
