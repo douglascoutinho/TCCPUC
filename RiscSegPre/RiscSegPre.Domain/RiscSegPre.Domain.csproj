@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\Adapter\EnderecoCep.cs" />
     <Compile Remove="Entities\Foto.cs" />
     <Compile Remove="Entities\FotoApartamento.cs" />
     <Compile Remove="Entities\FotoPredio.cs" />

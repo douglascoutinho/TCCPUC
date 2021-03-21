@@ -1,9 +1,9 @@
-﻿using RiscSegPre.Domain.IEntities;
+﻿using RiscSegPre.Domain.Entities.Factory;
 using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
-    public partial class NotaMeioProtecaoFisico : ICalcularMedia
+    public partial class NotaMeioProtecaoFisico : INota
     {
         protected NotaMeioProtecaoFisico()
         {
@@ -33,15 +33,15 @@ namespace RiscSegPre.Domain.Entities
 
         public virtual ICollection<Inspecao> Inspecao { get; private set; }
 
-        public decimal CalcularMedia(Inspecao inspecao)
+        public decimal MontarNota(Inspecao inspecao)
         {
             var mediaProtecaoFisico = ((inspecao.id_notaMeioProtecaoFisicoNavigation.sistemaDeteccaoIntruso +
-                                        inspecao.id_notaMeioProtecaoFisicoNavigation.recursoSegurancaPerimetroExterno +
-                                        inspecao.id_notaMeioProtecaoFisicoNavigation.meiosDesaceleracaoFrenagemVeiculo +
-                                        inspecao.id_notaMeioProtecaoFisicoNavigation.controleAcessoVeiculo +
-                                        inspecao.id_notaMeioProtecaoFisicoNavigation.controleAcessoPedestre +
-                                        inspecao.id_notaMeioProtecaoFisicoNavigation.meioProtecaoEdificio +
-                                        inspecao.id_notaMeioProtecaoFisicoNavigation.armarioSeguranca) / 7);
+                                       inspecao.id_notaMeioProtecaoFisicoNavigation.recursoSegurancaPerimetroExterno +
+                                       inspecao.id_notaMeioProtecaoFisicoNavigation.meiosDesaceleracaoFrenagemVeiculo +
+                                       inspecao.id_notaMeioProtecaoFisicoNavigation.controleAcessoVeiculo +
+                                       inspecao.id_notaMeioProtecaoFisicoNavigation.controleAcessoPedestre +
+                                       inspecao.id_notaMeioProtecaoFisicoNavigation.meioProtecaoEdificio +
+                                       inspecao.id_notaMeioProtecaoFisicoNavigation.armarioSeguranca) / 7);
             return mediaProtecaoFisico;
         }
     }

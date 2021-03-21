@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RiscSegPre.Domain.Entities.TemplateMethod;
+using System;
 
 namespace RiscSegPre.Domain.Entities
 {
@@ -75,6 +76,10 @@ namespace RiscSegPre.Domain.Entities
         internal Inspecao InserirMediaGeral(Inspecao inspecao, decimal media_geral)
         {
             inspecao.nota = media_geral;
+
+            var peso = new MontarPesoNota();
+            var pesoNotaFisico = peso.AddPesoFisico(); // TODO: Obter os pesos para gerar a media.
+
             return inspecao;
         }
 

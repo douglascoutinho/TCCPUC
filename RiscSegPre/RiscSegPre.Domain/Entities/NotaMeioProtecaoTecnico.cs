@@ -1,9 +1,9 @@
-﻿using RiscSegPre.Domain.IEntities;
+﻿using RiscSegPre.Domain.Entities.Factory;
 using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
-    public partial class NotaMeioProtecaoTecnico : ICalcularMedia
+    public partial class NotaMeioProtecaoTecnico : INota
     {
         protected NotaMeioProtecaoTecnico()
         {
@@ -33,15 +33,15 @@ namespace RiscSegPre.Domain.Entities
 
         public virtual ICollection<Inspecao> Inspecao { get; private set; }
 
-        public decimal CalcularMedia(Inspecao inspecao)
+        public decimal MontarNota(Inspecao inspecao)
         {
             var mediaProtecaoTecnico = ((inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaDeteccaoIntruso +
-                                         inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaAlarmeIntruso +
-                                         inspecao.id_notaMeioProtecaoTecnicoNavigation.circuitoFechadoVideo +
-                                         inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaControleAcesso +
-                                         inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaComunicacao +
-                                         inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaControleRodizio +
-                                         inspecao.id_notaMeioProtecaoTecnicoNavigation.telemonitoramento) / 7);
+                                      inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaAlarmeIntruso +
+                                      inspecao.id_notaMeioProtecaoTecnicoNavigation.circuitoFechadoVideo +
+                                      inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaControleAcesso +
+                                      inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaComunicacao +
+                                      inspecao.id_notaMeioProtecaoTecnicoNavigation.sistemaControleRodizio +
+                                      inspecao.id_notaMeioProtecaoTecnicoNavigation.telemonitoramento) / 7);
             return mediaProtecaoTecnico;
         }
     }

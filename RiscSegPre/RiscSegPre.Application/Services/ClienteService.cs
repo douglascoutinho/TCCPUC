@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RiscSegPre.Application.Contract;
 using RiscSegPre.Application.Models;
 using RiscSegPre.Domain.Entities;
+using RiscSegPre.Domain.Entities.Adapter;
 using RiscSegPre.Domain.IRepositories;
 using System.Collections.Generic;
 

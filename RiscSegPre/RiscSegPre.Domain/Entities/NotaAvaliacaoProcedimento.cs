@@ -1,9 +1,9 @@
-﻿using RiscSegPre.Domain.IEntities;
+﻿using RiscSegPre.Domain.Entities.Factory;
 using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
-    public partial class NotaAvaliacaoProcedimento : ICalcularMedia
+    public partial class NotaAvaliacaoProcedimento : INota
     {
         protected NotaAvaliacaoProcedimento()
         {
@@ -27,7 +27,7 @@ namespace RiscSegPre.Domain.Entities
 
         public virtual ICollection<Inspecao> Inspecao { get; private set; }
 
-        public decimal CalcularMedia(Inspecao inspecao)
+        public decimal MontarNota(Inspecao inspecao)
         {
             var mediaAvaliacao = ((inspecao.id_notaAvaliacaoProcedimentoNavigation.especificosLocal +
                                    inspecao.id_notaAvaliacaoProcedimentoNavigation.organizacaoSeguranca +

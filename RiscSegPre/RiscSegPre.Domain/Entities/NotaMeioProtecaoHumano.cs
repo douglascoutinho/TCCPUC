@@ -1,9 +1,9 @@
-﻿using RiscSegPre.Domain.IEntities;
+﻿using RiscSegPre.Domain.Entities.Factory;
 using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
-    public partial class NotaMeioProtecaoHumano : ICalcularMedia
+    public partial class NotaMeioProtecaoHumano : INota
     {
         protected NotaMeioProtecaoHumano()
         {
@@ -33,6 +33,15 @@ namespace RiscSegPre.Domain.Entities
                                         inspecao.id_notaMeioProtecaoHumanoNavigation.gestaoServicoVigilancia +
                                         inspecao.id_notaMeioProtecaoHumanoNavigation.equipamentoMaterial +
                                         inspecao.id_notaMeioProtecaoHumanoNavigation.capacidadeOperacional) / 4);
+            return mediaProtecaoHumano;
+        }
+
+        public decimal MontarNota(Inspecao inspecao)
+        {
+            var mediaProtecaoHumano = ((inspecao.id_notaMeioProtecaoHumanoNavigation.guardaSeguranca +
+                                       inspecao.id_notaMeioProtecaoHumanoNavigation.gestaoServicoVigilancia +
+                                       inspecao.id_notaMeioProtecaoHumanoNavigation.equipamentoMaterial +
+                                       inspecao.id_notaMeioProtecaoHumanoNavigation.capacidadeOperacional) / 4);
             return mediaProtecaoHumano;
         }
     }

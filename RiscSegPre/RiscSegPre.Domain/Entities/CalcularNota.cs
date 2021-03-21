@@ -4,10 +4,10 @@
     {
         public static Inspecao CalcularRisco(Inspecao inspecao)
         {
-            var meidiaAvaliacao = inspecao.id_notaAvaliacaoProcedimentoNavigation.CalcularMedia(inspecao);
-            var meidiaProtecaoFisico = inspecao.id_notaMeioProtecaoFisicoNavigation.CalcularMedia(inspecao);
-            var meidiaProtecaoHumano = inspecao.id_notaMeioProtecaoHumanoNavigation.CalcularMedia(inspecao);
-            var meidiaProtecaoTecnico = inspecao.id_notaMeioProtecaoTecnicoNavigation.CalcularMedia(inspecao);
+            var meidiaAvaliacao = inspecao.id_notaAvaliacaoProcedimentoNavigation.MontarNota(inspecao);
+            var meidiaProtecaoFisico = inspecao.id_notaMeioProtecaoFisicoNavigation.MontarNota(inspecao);
+            var meidiaProtecaoHumano = inspecao.id_notaMeioProtecaoHumanoNavigation.MontarNota(inspecao);
+            var meidiaProtecaoTecnico = inspecao.id_notaMeioProtecaoTecnicoNavigation.MontarNota(inspecao);
 
             var media_geral = ((meidiaAvaliacao + meidiaProtecaoFisico + meidiaProtecaoHumano + meidiaProtecaoTecnico)) / 4;
 

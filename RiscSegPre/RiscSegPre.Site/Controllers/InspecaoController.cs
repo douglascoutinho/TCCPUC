@@ -110,6 +110,7 @@ namespace RiscSegPre.Site.Controllers
                 ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_apartamento);
                 ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
                 ViewBag.ItensClientes = (IEnumerable<SelectListItem>)CarregarClientes(inspecao.id_cliente);
+
                 return View(inspecao);
             }
             catch (Exception e)

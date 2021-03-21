@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RiscSegPre.Application.Contract;
 using RiscSegPre.Application.Services;
+using RiscSegPre.Domain.Entities.Adapter;
 using RiscSegPre.Domain.IRepositories;
 using RiscSegPre.Infra.Data.Repositories;
 
@@ -10,6 +11,8 @@ namespace RiscSegPre.Site.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
+            services.AddScoped<IAddressApi, AddressApiService>();
+
             #region CAMADA DE APLICAÇÃO
 
             services.AddScoped<IApartamentoService, ApartamentoService>();

@@ -1,16 +1,14 @@
 using NUnit.Framework;
 
-namespace RiscSegPre.Test
+namespace RiscSegPre.Test.Inspecao
 {
     public class InspecaoTest
     {
         [SetUp]
-        public void Setup()
-        {
-        }
+        public void Setup() { }
 
         [Test]
-        public void Test1()
+        public void TestInspecao()
         {
             Assert.Pass();
         }
