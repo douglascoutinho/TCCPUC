@@ -11,12 +11,12 @@ namespace RiscSegPre.Site.Controllers
     public class BatalhaoPoliciaMilitarController : Controller
     {
         private readonly IBatalhaoPoliciaMilitarService batalhaoPoliciaMilitarService;
-        private readonly IBairroService bairroService;
+        private readonly ILocalService localService;
 
-        public BatalhaoPoliciaMilitarController(IBatalhaoPoliciaMilitarService batalhaoPoliciaMilitarService, IBairroService bairroService)
+        public BatalhaoPoliciaMilitarController(IBatalhaoPoliciaMilitarService batalhaoPoliciaMilitarService, ILocalService localService)
         {
             this.batalhaoPoliciaMilitarService = batalhaoPoliciaMilitarService;
-            this.bairroService = bairroService;
+            this.localService = localService;
         }
 
         public ActionResult Index()
@@ -81,7 +81,7 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var existe = bairroService.ExisteBatalhao(id);
+                var existe = localService.ExisteBatalhao(id);
 
                 if (!existe)
                     return Json(new { data = batalhaoPoliciaMilitarService.Excluir(id) });

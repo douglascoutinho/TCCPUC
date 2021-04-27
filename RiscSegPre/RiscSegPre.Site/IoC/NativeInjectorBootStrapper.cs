@@ -21,7 +21,7 @@ namespace RiscSegPre.Site.IoC
             services.AddScoped<IDelegaciaPoliciaCivilService, DelegaciaPoliciaCivilService>();
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IInspecaoService, InspecaoService>();
-            services.AddScoped<IBairroService, BairroService>();
+            services.AddScoped<ILocalService, LocalService>();
             services.AddScoped<IRiscoService, RiscoService>();
 
             #endregion Camada de Aplicação
@@ -34,7 +34,7 @@ namespace RiscSegPre.Site.IoC
             services.AddScoped<IDelegaciaPoliciaCivilRepository, DelegaciaPoliciaCivilRepository>();
             services.AddScoped<IBatalhaoPoliciaMilitarRepository, BatalhaoPoliciaMilitarRepository>();
             services.AddScoped<IApartamentoRepository, ApartamentoRepository>();
-            services.AddScoped<IBairroRepository, BairroRepository>();
+            services.AddScoped<ILocalRepository, LocalRepository>();
             services.AddScoped<IRiscoRepository, RiscoRepository>();
             services.AddScoped<IInspecaoRepository, InspecaoRepository>();
 

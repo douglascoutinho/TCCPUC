@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using RiscSegPre.Application.Contract;
 using RiscSegPre.Application.Models;
 using RiscSegPre.Site.Extentions.Menssagem;
-using System.Linq;
 
 namespace RiscSegPre.Site.Controllers
 {
@@ -13,7 +12,8 @@ namespace RiscSegPre.Site.Controllers
         private readonly IClienteService clienteService;
         private readonly IInspecaoService inspecaoService;
 
-        public ClienteController(IClienteService clienteService, IInspecaoService inspecaoService)
+        public ClienteController(IClienteService clienteService, 
+                                 IInspecaoService inspecaoService)
         {
             this.clienteService = clienteService;
             this.inspecaoService = inspecaoService;

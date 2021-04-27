@@ -19,7 +19,7 @@ namespace RiscSegPre.Infra.Data.Context
         }
 
         public virtual DbSet<Apartamento> Apartamento { get; set; }
-        public virtual DbSet<Bairro> Bairro { get; set; }
+        public virtual DbSet<Local> Local { get; set; }
         public virtual DbSet<BatalhaoPoliciaMilitar> BatalhaoPoliciaMilitar { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<DelegaciaPoliciaCivil> DelegaciaPoliciaCivil { get; set; }
@@ -108,12 +108,12 @@ namespace RiscSegPre.Infra.Data.Context
                     .HasConstraintName("FK_Predio_Apartamento");
             });
 
-            modelBuilder.Entity<Bairro>(entity =>
+            modelBuilder.Entity<Local>(entity =>
             {
-                entity.HasKey(e => e.id_bairro)
+                entity.HasKey(e => e.id_local)
                     .HasName("PK__Bairro__26E7F1296A7DDD5A");
 
-                entity.Property(e => e.nm_bairro)
+                entity.Property(e => e.nm_local)
                     .IsRequired()
                     .HasMaxLength(100);
 
@@ -251,9 +251,9 @@ namespace RiscSegPre.Infra.Data.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inspecao_Apartamento");
 
-                entity.HasOne(d => d.id_bairroNavigation)
+                entity.HasOne(d => d.id_localNavigation)
                     .WithMany(p => p.Inspecao)
-                    .HasForeignKey(d => d.id_bairro)
+                    .HasForeignKey(d => d.id_local)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inspecao_Bairro");
 

@@ -52,7 +52,7 @@ namespace RiscSegPre.Infra.Data.Repositories
             .AsNoTracking()
             .Include(x => x.id_predioNavigation)
             .Include(x => x.id_apartamentoNavigation)
-            .Include(x => x.id_bairroNavigation)
+            .Include(x => x.id_localNavigation)
             .Include(x => x.id_clienteNavigation);
         }
     }

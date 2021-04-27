@@ -2,8 +2,8 @@
 
 namespace RiscSegPre.Domain.IRepositories
 {
-    public interface IBairroRepository
-          : IBaseRepository<Bairro>
+    public interface ILocalRepository
+          : IBaseRepository<Local>
     {
     }
 }

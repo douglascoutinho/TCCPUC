@@ -40,9 +40,9 @@ namespace RiscSegPre.Application.AutoMapper
                 .ForMember(dest => dest.nm_cliente, opt => opt.MapFrom(src => src.nm_cliente))
                 .ForMember(x => x.Inspecao, y => y.Ignore());
 
-            CreateMap<BairroModel, Bairro>().ReverseMap()
-                .ForMember(dest => dest.id_bairro, opt => opt.MapFrom(src => src.id_bairro))
-                .ForMember(dest => dest.nm_bairro, opt => opt.MapFrom(src => src.nm_bairro))
+            CreateMap<LocalModel, Local>().ReverseMap()
+                .ForMember(dest => dest.id_local, opt => opt.MapFrom(src => src.id_local))
+                .ForMember(dest => dest.nm_local, opt => opt.MapFrom(src => src.nm_local))
                 .ForMember(dest => dest.ocorrencias, opt => opt.MapFrom(src => src.ocorrencias))
                 .ForMember(dest => dest.id_delegacia, opt => opt.MapFrom(src => src.id_delegacia))
                 .ForMember(dest => dest.id_batalhao, opt => opt.MapFrom(src => src.id_batalhao))
@@ -64,7 +64,7 @@ namespace RiscSegPre.Application.AutoMapper
                          src.id_cliente,
                          src.id_predio,
                          src.id_apartamento,
-                         src.id_bairro,
+                         src.id_local,
 
                          src.id_notaMeioProtecaoTecnico,
                          src.id_notaMeioProtecaoFisico,

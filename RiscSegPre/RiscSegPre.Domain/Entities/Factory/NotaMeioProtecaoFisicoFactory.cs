@@ -4,6 +4,7 @@
     {
         public override INota factoryMethod()
         {
+            // Retorna uma instância NotaMeioProtecaoFisico
             throw new System.NotImplementedException();
         }
     }

@@ -11,12 +11,12 @@ namespace RiscSegPre.Site.Controllers
     {
 
         private readonly IDelegaciaPoliciaCivilService policiaCivilService;
-        private readonly IBairroService bairroService;
+        private readonly ILocalService localService;
 
-        public DelegaciaPoliciaCivilController(IDelegaciaPoliciaCivilService policiaCivilService, IBairroService bairroService)
+        public DelegaciaPoliciaCivilController(IDelegaciaPoliciaCivilService policiaCivilService, ILocalService localService)
         {
             this.policiaCivilService = policiaCivilService;
-            this.bairroService = bairroService;
+            this.localService = localService;
         }
 
         public ActionResult Index()
@@ -81,7 +81,7 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                var existe = bairroService.ExisteDelegacia(id);//  bairroRepository.GetAll(x => x.id_batalhao == id).Any();
+                var existe = localService.ExisteDelegacia(id);
 
                 if (!existe)
                     return Json(new { data = policiaCivilService.Excluir(id) });

@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RiscSegPre.Application.Models
 {
-    public class BairroModel
+    public class LocalModel
     {
-        public int id_bairro { get; set; }
+        public int id_local { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatorio")]
         [Display(Name = "Nome")]
-        public string nm_bairro { get; set; }
+        public string nm_local { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatorio")]
         [Display(Name = "Cidade")]

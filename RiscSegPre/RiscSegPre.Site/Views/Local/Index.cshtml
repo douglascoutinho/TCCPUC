@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RiscSegPre.Application.Models.BairroModel>
+﻿@model IEnumerable<RiscSegPre.Application.Models.LocalModel>
 
 @{
     ViewData["Title"] = "Local";
@@ -6,13 +6,13 @@
 
 <section>
         <div class="spacer">
-            <a href="@Url.Action("Create", "Bairro")" class="btn btn-sm btn-outline-primary" title="Cadastrar">Cadastrar @ViewData["Title"] </a>
+            <a href="@Url.Action("Create", "Local")" class="btn btn-sm btn-outline-primary" title="Cadastrar">Cadastrar @ViewData["Title"] </a>
         </div>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.nm_bairro)
+                        @Html.DisplayNameFor(model => model.nm_local)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.cidade)
@@ -55,7 +55,7 @@
                 {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.nm_bairro)
+                        @Html.DisplayFor(modelItem => item.nm_local)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.cidade)
@@ -91,8 +91,8 @@
                         @Html.DisplayFor(modelItem => item.dt_cadastro)
                     </td>
                     <td>
-                        <a href="#" id="@item.id_bairro" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" id="@item.id_bairro" class="delete" onclick="excluir(this)" data-toggle="modal" data-target="#excluir"><i class="material-icons" data-toggle="tooltip" title="Excluir">&#xE872;</i></a>
+                        <a href="#" id="@item.id_local" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal" id="@item.id_local" class="delete" onclick="excluir(this)" data-toggle="modal" data-target="#excluir"><i class="material-icons" data-toggle="tooltip" title="Excluir">&#xE872;</i></a>
                     </td>
                 </tr>
                 }
@@ -107,14 +107,14 @@
 
         function goToEdit(id) {
 
-            location.href = "@Url.Action("Edit", "Bairro", new {id= "id" })".replace("id", id.toString());
+            location.href = "@Url.Action("Edit", "Local", new {id= "id" })".replace("id", id.toString());
         }
 
         $(".deletemodal").click(function () {
 
             var id = $('#id_selected').val();
             $.ajax({
-            url: "@(Url.Action("Delete", "Bairro"))",
+            url: "@(Url.Action("Delete", "Local"))",
             data: { "id": id },
             cache: false,
             type: "GET",
@@ -123,10 +123,10 @@
                 if (result.data.length == 0) {
                     var linha = $("#" + id);
                     $(linha).parents('tr').remove();
-                    toastr.success("Bairro excluido com sucesso.", {});
+                    toastr.success("Local excluido com sucesso.", {});
                 }
                 else if (result.data.length == 1) {
-                    toastr.warning("Existe uma inspeção vinculada ao bairro selecionado.", {});
+                    toastr.warning("Existe uma inspeção vinculada ao Local selecionado.", {});
                 }
             }});
         });

@@ -8,7 +8,7 @@ namespace RiscSegPre.Domain.Entities
         protected Inspecao() { }
 
         public Inspecao(int id_inspecao, string distanciaComunidade, string motivoReprovacao, decimal nota, string situacao, string fotoPredio, string fotoApartamento,
-                        int id_cliente, int id_predio, int id_apartamento, int id_bairro,
+                        int id_cliente, int id_predio, int id_apartamento, int id_local,
                         int id_notaMeioProtecaoTecnico, int id_notaMeioProtecaoFisico, int id_notaAvaliacaoProcedimento, int id_notaMeioProtecaoHumano,
                         NotaMeioProtecaoFisico id_notaMeioProtecaoFisicoNavigation, NotaMeioProtecaoHumano id_notaMeioProtecaoHumanoNavigation, NotaMeioProtecaoTecnico id_notaMeioProtecaoTecnicoNavigation, NotaAvaliacaoProcedimento id_notaAvaliacaoProcedimentoNavigation)
         {
@@ -23,7 +23,7 @@ namespace RiscSegPre.Domain.Entities
             this.id_cliente = id_cliente;
             this.id_predio = id_predio;
             this.id_apartamento = id_apartamento;
-            this.id_bairro = id_bairro;
+            this.id_local = id_local;
 
             this.id_notaMeioProtecaoTecnico = id_notaMeioProtecaoTecnico;
             this.id_notaMeioProtecaoFisico = id_notaMeioProtecaoFisico;
@@ -55,7 +55,7 @@ namespace RiscSegPre.Domain.Entities
         public int id_cliente { get; private set; }
         public int id_predio { get; private set; }
         public int id_apartamento { get; private set; }
-        public int id_bairro { get; private set; }
+        public int id_local { get; private set; }
 
         public int id_notaMeioProtecaoTecnico { get; private set; }
         public int id_notaMeioProtecaoFisico { get; private set; }
@@ -64,7 +64,7 @@ namespace RiscSegPre.Domain.Entities
         public DateTime dt_cadastro { get; private set; }
 
         public virtual Apartamento id_apartamentoNavigation { get; private set; }
-        public virtual Bairro id_bairroNavigation { get; private set; }
+        public virtual Local id_localNavigation { get; private set; }
         public virtual Cliente id_clienteNavigation { get; private set; }
         public virtual Predio id_predioNavigation { get; private set; }
 

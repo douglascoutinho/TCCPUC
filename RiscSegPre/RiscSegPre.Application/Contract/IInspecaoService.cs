@@ -12,7 +12,7 @@ namespace RiscSegPre.Application.Contract
         InspecaoModel ConsultarPorId(int id);
         string Excluir(int id);
         InspecaoModel GerarNota(InspecaoModel model);
-        bool ExisteBairro(int id_bairro);
+        bool ExisteLocal(int id_local);
         bool ExisteCliente(int id_cliente);
         bool ExisteApartamento(int id_apartamento);
     }

@@ -11,7 +11,7 @@ namespace RiscSegPre.Application.AutoMapper
             CreateMap<Apartamento, ApartamentoModel>().ReverseMap();
             CreateMap<Predio, PredioModel>().ReverseMap();
             CreateMap<Cliente, ClienteModel>().ReverseMap();
-            CreateMap<Bairro, BairroModel>().ReverseMap();
+            CreateMap<Local, LocalModel>().ReverseMap();
 
             CreateMap<BatalhaoPoliciaMilitar, BatalhaoPoliciaMilitarModel>()
                    .ConvertUsing((src, dst) =>
@@ -58,14 +58,14 @@ namespace RiscSegPre.Application.AutoMapper
             .ForMember(dest => dest.id_cliente, opt => opt.MapFrom(src => src.id_cliente))
             .ForMember(dest => dest.id_predio, opt => opt.MapFrom(src => src.id_predio))
             .ForMember(dest => dest.id_apartamento, opt => opt.MapFrom(src => src.id_apartamento))
-            .ForMember(dest => dest.id_bairro, opt => opt.MapFrom(src => src.id_bairro))
+            .ForMember(dest => dest.id_local, opt => opt.MapFrom(src => src.id_local))
             .ForMember(dest => dest.id_notaMeioProtecaoTecnico, opt => opt.MapFrom(src => src.id_notaMeioProtecaoTecnico))
             .ForMember(dest => dest.id_notaMeioProtecaoFisico, opt => opt.MapFrom(src => src.id_notaMeioProtecaoFisico))
             .ForMember(dest => dest.id_notaAvaliacaoProcedimento, opt => opt.MapFrom(src => src.id_notaAvaliacaoProcedimento))
             .ForMember(dest => dest.id_notaMeioProtecaoHumano, opt => opt.MapFrom(src => src.id_notaMeioProtecaoHumano))
             .ForMember(dest => dest.dt_cadastro, opt => opt.MapFrom(src => src.dt_cadastro))
             .ForMember(dest => dest.id_apartamentoNavigation, opt => opt.MapFrom(src => src.id_apartamentoNavigation))
-            .ForMember(dest => dest.id_bairroNavigation, opt => opt.MapFrom(src => src.id_bairroNavigation))
+            .ForMember(dest => dest.id_localNavigation, opt => opt.MapFrom(src => src.id_localNavigation))
             .ForMember(dest => dest.id_clienteNavigation, opt => opt.MapFrom(src => src.id_clienteNavigation))
             .ForMember(dest => dest.id_predioNavigation, opt => opt.MapFrom(src => src.id_predioNavigation));
 

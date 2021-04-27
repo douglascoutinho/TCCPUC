@@ -16,15 +16,15 @@ namespace RiscSegPre.Site.Controllers
         private readonly IInspecaoService inspecaoService;
         private readonly IPredioService predioService;
         private readonly IApartamentoService apartamentoService;
-        private readonly IBairroService bairroService;
+        private readonly ILocalService localService;
         private readonly IClienteService clienteService;
 
-        public InspecaoController(IInspecaoService inspecaoService, IPredioService predioService, IApartamentoService apartamentoService, IBairroService bairroService, IClienteService clienteService)
+        public InspecaoController(IInspecaoService inspecaoService, IPredioService predioService, IApartamentoService apartamentoService, ILocalService localService, IClienteService clienteService)
         {
             this.inspecaoService = inspecaoService;
             this.predioService = predioService;
             this.apartamentoService = apartamentoService;
-            this.bairroService = bairroService;
+            this.localService = localService;
             this.clienteService = clienteService;
         }
 
@@ -83,7 +83,7 @@ namespace RiscSegPre.Site.Controllers
 
                 ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
                 ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_select == 0 ? inspecao.id_apartamento : inspecao.id_select);
-                ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
+                ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_local);
                 ViewBag.ItensClientes = (IEnumerable<SelectListItem>)CarregarClientes(inspecao.id_cliente);
 
                 inspecao.fotoApartamento = fotoApartamento == null ? string.Empty : fotoApartamento.FileName;
@@ -108,7 +108,7 @@ namespace RiscSegPre.Site.Controllers
 
                 ViewBag.ItensPredios = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
                 ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_apartamento);
-                ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
+                ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_local);
                 ViewBag.ItensClientes = (IEnumerable<SelectListItem>)CarregarClientes(inspecao.id_cliente);
 
                 return View(inspecao);
@@ -149,7 +149,7 @@ namespace RiscSegPre.Site.Controllers
 
                     ViewData["ItensPredios"] = (IEnumerable<SelectListItem>)CarregarPredios(inspecao.id_predio);
                     ViewBag.ItensApartamentos = (IEnumerable<SelectListItem>)CarregarApartamentos(inspecao.id_apartamento);
-                    ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_bairro);
+                    ViewBag.ItensBairros = (IEnumerable<SelectListItem>)CarregarBairros(inspecao.id_local);
                     ViewBag.ItensClientes = (IEnumerable<SelectListItem>)CarregarClientes(inspecao.id_cliente);
 
                     inspecao.fotoApartamento = fotoApartamento.FileName;
@@ -218,8 +218,8 @@ namespace RiscSegPre.Site.Controllers
         private IEnumerable<SelectListItem> CarregarBairros(int id = 0)
         {
             if (id > 0)
-                return bairroService.CarregarBairros(id);
-            return bairroService.CarregarBairros();
+                return localService.CarregarLocais(id);
+            return localService.CarregarLocais();
         }
 
         private IEnumerable<SelectListItem> CarregarClientes(int id = 0)

@@ -83,9 +83,9 @@ namespace RiscSegPre.Application.Services
             return repository.GetAll(x => x.id_cliente == id_cliente).Any();
         }
 
-        public bool ExisteBairro(int id_bairro)
+        public bool ExisteLocal(int id_local)
         {
-            return repository.GetAll(x => x.id_bairro == id_bairro).Any();
+            return repository.GetAll(x => x.id_local == id_local).Any();
         }
 
         public bool ExisteCliente(int id_cliente)

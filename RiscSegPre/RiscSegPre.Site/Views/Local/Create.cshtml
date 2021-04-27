@@ -1,4 +1,4 @@
-﻿@model RiscSegPre.Application.Models.BairroModel
+﻿@model RiscSegPre.Application.Models.LocalModel
 
 @{
     ViewData["Title"] = "Local";
@@ -13,9 +13,9 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <label asp-for="nm_bairro" class="control-label"></label>
-                <input asp-for="nm_bairro" class="form-control" />
-                <span asp-validation-for="nm_bairro" class="text-danger"></span>
+                <label asp-for="nm_local" class="control-label"></label>
+                <input asp-for="nm_local" class="form-control" />
+                <span asp-validation-for="nm_local" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="cidade" class="control-label"></label>
@@ -82,7 +82,7 @@
             <div class="row">
                 <div class="form-group">
                     <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
-                    <a asp-action="Index" asp-controller="Bairro" class="btn btn-sm btn-primary">Voltar</a>
+                    <a asp-action="Index" asp-controller="Local" class="btn btn-sm btn-primary">Voltar</a>
                 </div>
             </div>
         </div>

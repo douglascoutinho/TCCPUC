@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace RiscSegPre.Domain.Entities
 {
-    public partial class Bairro
+    public partial class Local
     {
-        protected Bairro()
+        protected Local()
         {
             Inspecao = new HashSet<Inspecao>();
         }
 
-        public Bairro(int id_bairro, string nm_bairro, string cidade, string estado, string cisp, string risp, string aisp, string ocorrencias, DateTime? dt_atualizacao, DateTime dt_cadastro, int id_delegacia, int id_batalhao, int id_risco)
+        public Local(int id_local, string nm_local, string cidade, string estado, string cisp, string risp, string aisp, string ocorrencias, DateTime? dt_atualizacao, DateTime dt_cadastro, int id_delegacia, int id_batalhao, int id_risco)
         {
-            this.id_bairro = id_bairro;
-            this.nm_bairro = nm_bairro;
+            this.id_local = id_local;
+            this.nm_local = nm_local;
             this.cidade = cidade;
             this.estado = estado;
             this.cisp = cisp;
@@ -27,8 +27,8 @@ namespace RiscSegPre.Domain.Entities
             this.id_risco = id_risco;
         }
 
-        public int id_bairro { get; private set; }
-        public string nm_bairro { get; private set; }
+        public int id_local { get; private set; }
+        public string nm_local { get; private set; }
         public string cidade { get; private set; }
         public string estado { get; private set; }
         public string cisp { get; private set; }

@@ -10,17 +10,17 @@ using System.Collections.Generic;
 namespace RiscSegPre.Site.Controllers
 {
     [Authorize]
-    public class BairroController : Controller
+    public class LocalController : Controller
     {
-        private readonly IBairroService bairroService;
+        private readonly ILocalService localService;
         private readonly IInspecaoService inspecaoService;
         private readonly IDelegaciaPoliciaCivilService policiaCivilService;
         private readonly IBatalhaoPoliciaMilitarService policiaMilitarService;
         private readonly IRiscoService riscoService;
 
-        public BairroController(IBairroService bairroService, IInspecaoService inspecaoService, IDelegaciaPoliciaCivilService policiaCivilService, IBatalhaoPoliciaMilitarService policiaMilitarService, IRiscoService riscoService)
+        public LocalController(ILocalService localService, IInspecaoService inspecaoService, IDelegaciaPoliciaCivilService policiaCivilService, IBatalhaoPoliciaMilitarService policiaMilitarService, IRiscoService riscoService)
         {
-            this.bairroService = bairroService;
+            this.localService = localService;
             this.inspecaoService = inspecaoService;
             this.policiaCivilService = policiaCivilService;
             this.policiaMilitarService = policiaMilitarService;
@@ -29,7 +29,7 @@ namespace RiscSegPre.Site.Controllers
 
         public ActionResult Index()
         {
-            return View(bairroService.ConsultarTodos());
+            return View(localService.ConsultarTodos());
         }
 
         public ActionResult Create()
@@ -43,14 +43,14 @@ namespace RiscSegPre.Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BairroModel model)
+        public ActionResult Create(LocalModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     model.dt_atualizacao = null;
-                    bairroService.Cadastrar(model);
+                    localService.Cadastrar(model);
                     this.ShowMessage(Mensagens.msgCadastroSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
@@ -69,25 +69,25 @@ namespace RiscSegPre.Site.Controllers
 
         public ActionResult Edit(int id)
         {
-            var bairro = bairroService.ConsultarPorId(id);
+            var local = localService.ConsultarPorId(id);
 
-            ViewBag.ItensDelegacias = CarregarDelegacias(bairro.id_delegacia);
-            ViewBag.ItensBatalhoes = CarregarBatalhoes(bairro.id_batalhao);
-            ViewBag.ItensRiscos = CarregarRiscos(bairro.id_risco);
+            ViewBag.ItensDelegacias = CarregarDelegacias(local.id_delegacia);
+            ViewBag.ItensBatalhoes = CarregarBatalhoes(local.id_batalhao);
+            ViewBag.ItensRiscos = CarregarRiscos(local.id_risco);
 
-            return View(bairro);
+            return View(local);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(BairroModel model)
+        public ActionResult Edit(LocalModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     model.dt_atualizacao = DateTime.Now;
-                    bairroService.Atualizar(model);
+                    localService.Atualizar(model);
                     this.ShowMessage(Mensagens.msgAlteracaoSucesso, ToastrDialogType.Sucess);
                     return RedirectToAction(nameof(Index));
                 }
@@ -109,10 +109,10 @@ namespace RiscSegPre.Site.Controllers
         {
             try
             {
-                bool existe = inspecaoService.ExisteBairro(id);
+                bool existe = inspecaoService.ExisteLocal(id);
 
                 if (!existe)
-                    return Json(new { data = bairroService.Excluir(id) });
+                    return Json(new { data = localService.Excluir(id) });
 
                 else return Json(new { data = "1" });
             }

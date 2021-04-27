@@ -6,20 +6,20 @@ using System.Linq;
 
 namespace RiscSegPre.Infra.Data.Repositories
 {
-    public class BairroRepository
-        : BaseRepository<Bairro>, IBairroRepository
+    public class LocalRepository
+        : BaseRepository<Local>, ILocalRepository
     {
         private readonly DataContext context;
 
-        public BairroRepository(DataContext context)
+        public LocalRepository(DataContext context)
             : base(context)
         {
             this.context = context;
         }
 
-        public override IQueryable<Bairro> GetAll()
+        public override IQueryable<Local> GetAll()
         {
-            return context.Bairro
+            return context.Local
                 .Include(x => x.id_delegaciaNavigation)
                 .Include(x => x.id_batalhaoNavigation)
                 .Include(x => x.id_riscoNavigation);

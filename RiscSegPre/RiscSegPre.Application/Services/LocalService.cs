@@ -9,38 +9,38 @@ using System.Linq;
 
 namespace RiscSegPre.Application.Services
 {
-    public class BairroService : IBairroService
+    public class LocalService : ILocalService
     {
-        private readonly IBairroRepository repository;
+        private readonly ILocalRepository repository;
         private readonly IMapper _mapper;
 
-        public BairroService(IBairroRepository repository, IMapper mapper)
+        public LocalService(ILocalRepository repository, IMapper mapper)
         {
             this.repository = repository;
             _mapper = mapper;
         }
 
-        public void Cadastrar(BairroModel model)
+        public void Cadastrar(LocalModel model)
         {
-            var bairro = _mapper.Map<Bairro>(model);
-            repository.Insert(bairro);
+            var local = _mapper.Map<Local>(model);
+            repository.Insert(local);
         }
-        public void Atualizar(BairroModel model)
+        public void Atualizar(LocalModel model)
         {
-            var bairro = _mapper.Map<Bairro>(model);
-            repository.Update(bairro);
+            var local = _mapper.Map<Local>(model);
+            repository.Update(local);
         }
 
-        public List<BairroModel> ConsultarTodos()
+        public List<LocalModel> ConsultarTodos()
         {
-            var bairros = repository.GetAll();
-            return _mapper.Map<List<BairroModel>>(bairros);
+            var locais = repository.GetAll();
+            return _mapper.Map<List<LocalModel>>(locais);
         }
         
-        public BairroModel ConsultarPorId(int id)
+        public LocalModel ConsultarPorId(int id)
         {
-            var bairro = repository.GetById(id);
-            return _mapper.Map<BairroModel>(bairro);
+            var local = repository.GetById(id);
+            return _mapper.Map<LocalModel>(local);
         }
 
         public string Excluir(int id)
@@ -55,12 +55,12 @@ namespace RiscSegPre.Application.Services
             return string.Empty;
         }
 
-        public IEnumerable<SelectListItem> CarregarBairros(int selecionado)
+        public IEnumerable<SelectListItem> CarregarLocais(int selecionado)
         {
             return new SelectList(repository.GetDictionary(), "Key", "Value", selecionado);
         }
 
-        public IEnumerable<SelectListItem> CarregarBairros()
+        public IEnumerable<SelectListItem> CarregarLocais()
         {
             return new SelectList(repository.GetDictionary(), "Key", "Value");
         }

@@ -1,0 +1,11 @@
+Sequência para criar as tabelas no banco de dados SQL Server:
+
+ 1 - Criar a tabela de Login através da migration no Package Manger Console VS2019 segue os comandos:
+	- add-migration AddLogin -Context LoginContext
+	- update-database -Context LoginContext
+
+ 2 - Gerar o script no banco de dados criar_tabelas.sql
+
+ 3 - Se necessário popular as tabelas gerar o script gerar_dados.sql
+
+ GitHub ->  https://github.com/douglascoutinho/TCCPUC

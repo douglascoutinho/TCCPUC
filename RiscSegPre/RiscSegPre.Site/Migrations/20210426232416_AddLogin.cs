@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RiscSegPre.Site.Migrations
 {
-    public partial class AddMigrateLogin : Migration
+    public partial class AddLogin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

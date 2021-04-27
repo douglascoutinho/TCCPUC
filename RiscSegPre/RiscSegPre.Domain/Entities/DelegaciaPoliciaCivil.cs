@@ -6,7 +6,7 @@ namespace RiscSegPre.Domain.Entities
     {
         protected DelegaciaPoliciaCivil()
         {
-            Bairro = new HashSet<Bairro>();
+            Bairro = new HashSet<Local>();
         }
 
         public DelegaciaPoliciaCivil(int id_delegacia, string ds_delegacia)
@@ -17,6 +17,6 @@ namespace RiscSegPre.Domain.Entities
 
         public int id_delegacia { get; private set; }
         public string ds_delegacia { get; private set; }
-        public virtual ICollection<Bairro> Bairro { get; private set; }
+        public virtual ICollection<Local> Bairro { get; private set; }
     }
 }

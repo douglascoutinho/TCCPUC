@@ -10,8 +10,8 @@ using RiscSegPre.Site.Data;
 namespace RiscSegPre.Site.Migrations
 {
     [DbContext(typeof(LoginContext))]
-    [Migration("20201205215618_AddMigrateLogin")]
-    partial class AddMigrateLogin
+    [Migration("20210426232416_AddLogin")]
+    partial class AddLogin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

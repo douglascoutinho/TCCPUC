@@ -42,7 +42,7 @@ namespace RiscSegPre.Application.Models
 
         [Required(ErrorMessage = "O campo {0} é obrigatorio")]
         [Display(Name = "Bairro")]
-        public int id_bairro { get; set; }
+        public int id_local { get; set; }
 
         public int id_select { get; set; } = 0;
 
@@ -59,7 +59,7 @@ namespace RiscSegPre.Application.Models
         public  ApartamentoModel id_apartamentoNavigation { get; set; }
 
         [Display(Name = "Bairro")]
-        public  BairroModel id_bairroNavigation { get; set; }
+        public  LocalModel id_localNavigation { get; set; }
 
         [Display(Name = "Cliente")]
         public  ClienteModel id_clienteNavigation { get; set; }

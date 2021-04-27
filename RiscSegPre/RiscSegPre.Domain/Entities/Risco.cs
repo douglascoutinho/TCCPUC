@@ -6,7 +6,7 @@ namespace RiscSegPre.Domain.Entities
     {
         protected Risco()
         {
-            Bairro = new HashSet<Bairro>();
+            Bairro = new HashSet<Local>();
         }
 
         public Risco(int id_risco, string ds_risco)
@@ -18,6 +18,6 @@ namespace RiscSegPre.Domain.Entities
         public int id_risco { get; private set; }
         public string ds_risco { get; private set; }
 
-        public virtual ICollection<Bairro> Bairro { get; private set; }
+        public virtual ICollection<Local> Bairro { get; private set; }
     }
 }
